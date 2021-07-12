@@ -22,6 +22,11 @@ const Usuario = new Schema({
         type: String,
         required: true
     }
+    //guarda imagen
+    /*,photo: {
+        data: Buffer,
+        contentType: String,
+    }*/
 });
 
 module.exports = mongoose.model('Usuario', Usuario);

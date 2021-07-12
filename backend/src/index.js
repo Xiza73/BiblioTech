@@ -21,7 +21,8 @@ app.use(cors());
 //database
 
 //routes
-app.use('/api', require('./routes/task.routes'));
+app.use('/api/claseEjemplo', require('./routes/claseEjemplo'));
+//app.use('/api/usuario', require('./routes/usuario'));
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
