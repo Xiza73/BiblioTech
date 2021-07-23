@@ -37,7 +37,7 @@ exports.read = async (req, res) => {
     });
 }
 
-exports.readId = async (req, res) => {
+exports.readById = async (req, res) => {
     await ClaseEjemplo.findById(req.params.id)
     .exec((err, data) => {
         if(err){

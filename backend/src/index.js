@@ -22,6 +22,10 @@ app.use(cors());
 
 //routes
 app.use('/api/claseEjemplo', require('./routes/claseEjemplo'));
+app.use('/api/comentario', require('./routes/comentario'));
+app.use('/api/usuario', require('./routes/usuario'));
+app.use('/api/libro', require('./routes/libro'));
+app.use('/api/favorito', require('./routes/favorito'));
 //app.use('/api/usuario', require('./routes/usuario'));
 
 //static files

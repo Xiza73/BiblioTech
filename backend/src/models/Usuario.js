@@ -13,15 +13,16 @@ const Usuario = new Schema({
     correo: {
         type: String,
         required: true
-    },
-    fec_nac: {
-        type: Date,
-        required: true
-    },
-    grado: {
+    },    
+    rol: {
         type: String,
         required: true
+    },
+    //guarda imagen
+    imagen: {
+        type: String
     }
+    //falta un id para unir usuario y persona
     //guarda imagen
     /*,photo: {
         data: Buffer,
