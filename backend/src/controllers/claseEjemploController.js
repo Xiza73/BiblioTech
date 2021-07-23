@@ -33,7 +33,7 @@ exports.read = async (req, res) => {
                 msg: "Error al obtener datos"
             })
         }
-        res.json(data);
+        return res.json(data);
     });
 }
 
@@ -72,7 +72,7 @@ exports.update = async (req, res) => {
 }*/
 exports.remove = async (req, res) => {
     const obj = req.claseEjemplo;
-    obj.remove((err, data) => {
+    await obj.remove((err, data) => {
         if(err){
             return res.status(400).json({
                 error: errorHandler(err),
@@ -88,7 +88,7 @@ exports.remove = async (req, res) => {
 }
 
 exports.objectById = async (req, res, next, id) => {
-    ClaseEjemplo.findById(id).exec((err, data) => {
+    await ClaseEjemplo.findById(id).exec((err, data) => {
         if(err || !data){
             return res.status(400).json({
                 error: err,
