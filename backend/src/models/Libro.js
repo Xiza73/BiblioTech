@@ -22,7 +22,7 @@ const Libro = new Schema({
         type: String,
         required: true
     },
-    fec_pub: {
+    fch_pub: {
         type: Date,
         required: true
     }

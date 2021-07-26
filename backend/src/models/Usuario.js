@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const { ObjectId } = Schema;
 
 const Usuario = new Schema({
     usuario: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     contrasenia: {
         type: String,
@@ -12,22 +14,18 @@ const Usuario = new Schema({
     },
     correo: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },    
     rol: {
-        type: String,
+        type: ObjectId,
+        ref: "Rol",
         required: true
     },
-    //guarda imagen
-    imagen: {
-        type: String
-    }
-    //falta un id para unir usuario y persona
-    //guarda imagen
-    /*,photo: {
+    avatar: {
         data: Buffer,
         contentType: String,
-    }*/
-});
+    }
+},{timestamps: true});
 
 module.exports = mongoose.model('Usuario', Usuario);

@@ -4,19 +4,21 @@ const router = express.Router();
 //Controller
 const { create,
         read, 
+        readById,
         update, 
         remove,
-        objectById } = require('../controllers/comentarioController');
+        objectById } = require('../controllers/rolController');
 
 router.post('/', create);
 
 router.get('/', read);
 
-router.put('/', update);
+router.get('/:id', readById);
 
-router.delete('/', remove);
+router.put('/:id', update);
 
-router.param('', objectById);
+router.delete('/:id', remove);
 
+router.param('id', objectById);
 
 module.exports = router;

@@ -10,13 +10,13 @@ const Comentario = new Schema({
         maxlength: 2000
     },    
     id_usuario: {
-        type: String,
-       // type: ObjectId,
-       // ref: "Usuario",
+        type: ObjectId,
+        ref: "Usuario",
         required: true
     },
     id_libro: {
-        type: String,
+        type: ObjectId,
+        ref: "Libro",
         required: true
     }
 },{timestamps: true});

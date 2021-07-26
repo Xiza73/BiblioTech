@@ -3,7 +3,7 @@ const formidable = require('formidable');
 const _ = require('lodash');
 const fs = require('fs');
 //Model
-const Usuario = require('../models/Usuario');
+const Persona = require('../models/Persona');
 
 exports.create = async (req, res) => {
     let form = new formidable.IncomingForm()
@@ -14,21 +14,12 @@ exports.create = async (req, res) => {
                 error: "Error al leer datos"
             })
         }
-        const { usuario, 
-                contrasenia,
-                correo,
-                rol } = fields;
-        const nuevoUsuario = new Usuario(fields);
-        if (files.avatar) {
-            if (files.avatar.size > 1000000) {
-              return res.status(400).json({
-                error: "La imagen debe pesar menos de 1MB"
-              })
-            }
-            nuevoUsuario.avatar.data = fs.readFileSync(files.avatar.path)
-            nuevoUsuario.avatar.contentType = files.avatar.type
-        }
-        await nuevoUsuario.save((err, data) => {
+        const { id_usuario, 
+                nombre,
+                apellido } = fields;
+        const persona = new Persona(fields);
+        console.log(persona)
+        await persona.save((err, data) => {
             if(err){
                 return res.status(400).json({
                     error: errorHandler(err),
@@ -46,10 +37,17 @@ exports.create = async (req, res) => {
 
 exports.read = async (req, res) => {
     let order = req.query.order ? req.query.order : 'asc';
-    let sortBy = req.query.sortBy ? req.query.sortBy : 'name'
-    await Usuario.find()
-        .select("-avatar")
-        .populate("rol")
+    let sortBy = req.query.sortBy ? req.query.sortBy : 'nombre'
+    await Persona.find()
+        .populate({
+            path: 'id_usuario',
+            select: 'usuario',
+            populate: {
+                path: 'rol',
+                select: 'nombre -_id'
+            }
+        })
+        .select('nombre apellido id_usuario')
         .sort([[sortBy, order]])
         .exec((err, data) => {
             if(err){
@@ -64,7 +62,7 @@ exports.read = async (req, res) => {
 }
 
 exports.readById = async (req, res) => {
-    await Usuario.findById(req.params.id)
+    await Persona.findById(req.params.id)
         .exec((err, data) => {
             if(err){
                 return res.status(400).json({
@@ -77,25 +75,13 @@ exports.readById = async (req, res) => {
         });
 }
 
-exports.avatar = async (req, res) => {
-    if(req.usuario.avatar.data){
-        await res.set('Content-Type', req.usuario.avatar.contentType)
-        return res.send({
-            status: 1,
-            msg: "Foto Actualizada"
-        })
-    }
-}
-
 exports.update = async (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
     form.parse(req, async (err, fields, files) => {  
-        const { usuario, 
-                contrasenia,
-                correo,
-                rol,
-                imagen } = fields;
+        const { id_usuario, 
+                nombre,
+                apellido } = fields;
         await ClaseEjemplo.findByIdAndUpdate(req.params.id, fields);
         res.json({
             status: 1,
@@ -105,7 +91,7 @@ exports.update = async (req, res) => {
     
 }
 exports.remove = async (req, res) => {
-    const obj = req.Usuario;
+    const obj = req.Persona;
     obj.remove((err, data) => {
         if(err){
             return res.status(400).json({
@@ -122,7 +108,7 @@ exports.remove = async (req, res) => {
 }
 
 exports.objectById = async (req, res, next, id) => {
-    Usuario.findById(id).exec((err, data) => {
+    Persona.findById(id).exec((err, data) => {
         if(err || !data){
             return res.status(400).json({
                 error: err,
@@ -130,7 +116,7 @@ exports.objectById = async (req, res, next, id) => {
                 msg: "No se encontró el objeto"
             })
         }
-        req.Usuario = data;
+        req.Persona = data;
         next();
     })
 }

@@ -1,31 +1,27 @@
-const { errorHandler}  = require('../helpers/dbErrorHandler');
+const { errorHandler } = require('../helpers/dbErrorHandler');
 //Model
-const Favorito = require('../models/Favorito');
+const Rol = require('../models/Rol');
 
 exports.create = async (req, res) => {
-    const { id_usuario,
-            id_libro } = req.body;
-    const obj = new Favorito({
-            estado,
-            id_usuario,
-            id_libro});
-    await obj.save((data, err) => {
+    const { nombre } = req.body;
+    const rol = new Rol({ nombre });
+    await rol.save((err, data) => {
         if(err){
             return res.status(400).json({
                 error: errorHandler(err),
                 status: 0,
                 msg: "Error al insertar datos"
-            });
+            })
         }
         res.json({
             status: 1,
             msg: "Insertado correctamente"
         });
-    });    
+    });
 }
 
 exports.read = async (req, res) => {
-    await Favorito.find().exec((err, data) => {
+    await Rol.find().exec((err, data) => {
         if(err){
             return res.status(400).json({
                 error: errorHandler(err),
@@ -38,7 +34,7 @@ exports.read = async (req, res) => {
 }
 
 exports.readById = async (req, res) => {
-    await Favorito.findById(req.params.id)
+    await Rol.findById(req.params.id)
     .exec((err, data) => {
         if(err){
             return res.status(400).json({
@@ -52,14 +48,8 @@ exports.readById = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
-    const { estado,
-        id_usuario,
-        id_libro } = req.body;
-    await Favorito.findByIdAndUpdate(req.params.id, { 
-        estado,
-        id_usuario,
-        id_libro 
-    });
+    const { nombre } = req.body;
+    await Rol.findByIdAndUpdate(req.params.id, { nombre });
     res.json({
         status: 1,
         msg: "Objeto actualizado"
@@ -67,8 +57,8 @@ exports.update = async (req, res) => {
 }
 
 exports.remove = async (req, res) => {
-    const obj = req.Favorito;
-    await obj.remove((err, data) => {
+    const rol = req.Rol;
+    rol.remove((err, data) => {
         if(err){
             return res.status(400).json({
                 error: errorHandler(err),
@@ -78,13 +68,13 @@ exports.remove = async (req, res) => {
         }
         res.json({
             status: 1,
-            msg: "Objeto eliminado"
+            msg: "Rol eliminado"
         });
     })
 }
 
 exports.objectById = async (req, res, next, id) => {
-    await Favorito.findById(id).exec((err, data) => {
+    Rol.findById(id).exec((err, data) => {
         if(err || !data){
             return res.status(400).json({
                 error: err,
@@ -92,7 +82,7 @@ exports.objectById = async (req, res, next, id) => {
                 msg: "No se encontró el objeto"
             })
         }
-        req.Favorito = data;
+        req.Rol = data;
         next();
     })
 }

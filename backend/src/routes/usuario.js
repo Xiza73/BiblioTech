@@ -6,7 +6,6 @@ const { create,
         read, 
         readById,
         update, 
-        //delet,
         remove,
         objectById } = require('../controllers/usuarioController');
 
@@ -17,8 +16,6 @@ router.get('/', read);
 router.get('/:id', readById);
 
 router.put('/:id', update);
-
-//router.delete('/:id', delet);
 
 router.delete('/:id', remove);
 
