@@ -1,27 +1,35 @@
 const { errorHandler } = require('../helpers/dbErrorHandler');
+const formidable = require("formidable");
 //Model
 const ClaseEjemplo = require('../models/ClaseEjemplo');
 
 exports.create = async (req, res) => {
-    const { title, 
-            description } = req.body;
-    const obj = new ClaseEjemplo({
-        title, 
-        description
-    })
-    await obj.save((err, data) => {
-        if(err){
+    const form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.parse(req, async (err, fields, files) => {
+        if (err) {
             return res.status(400).json({
-                error: errorHandler(err),
-                status: 0,
-                msg: "Error al insertar datos"
+                error: "Error al leer datos"
             })
         }
-        res.json({
-            status: 1,
-            msg: "Insertado correctamente"
+        const { title, 
+            description } = fields;
+        const obj = new ClaseEjemplo(fields)
+        await obj.save((err, data) => {
+            if(err){
+                return res.status(400).json({
+                    error: errorHandler(err),
+                    status: 0,
+                    msg: "Error al insertar datos"
+                })
+            }
+            res.json({
+                status: 1,
+                msg: "Insertado correctamente"
+            });
         });
-    });
+    })
+    
 }
 
 exports.read = async (req, res) => {
@@ -33,7 +41,7 @@ exports.read = async (req, res) => {
                 msg: "Error al obtener datos"
             })
         }
-        res.json(data);
+        return res.json(data);
     });
 }
 
@@ -72,7 +80,7 @@ exports.update = async (req, res) => {
 }*/
 exports.remove = async (req, res) => {
     const obj = req.claseEjemplo;
-    obj.remove((err, data) => {
+    await obj.remove((err, data) => {
         if(err){
             return res.status(400).json({
                 error: errorHandler(err),
@@ -88,15 +96,16 @@ exports.remove = async (req, res) => {
 }
 
 exports.objectById = async (req, res, next, id) => {
-    ClaseEjemplo.findById(id).exec((err, data) => {
-        if(err || !data){
-            return res.status(400).json({
-                error: err,
-                status: 0,
-                msg: "No se encontró el objeto"
-            })
-        }
-        req.claseEjemplo = data;
-        next();
-    })
+    await ClaseEjemplo.findById(id)
+        .exec((err, data) => {
+            if(err || !data){
+                return res.status(400).json({
+                    error: err,
+                    status: 0,
+                    msg: "No se encontró el objeto"
+                })
+            }
+            req.claseEjemplo = data;
+            next();
+        })
 }

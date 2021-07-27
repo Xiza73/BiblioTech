@@ -24,9 +24,12 @@ app.use(cors());
 app.use('/api/claseEjemplo', require('./routes/claseEjemplo'));
 app.use('/api/comentario', require('./routes/comentario'));
 app.use('/api/usuario', require('./routes/usuario'));
+app.use('/api/rol', require('./routes/rol'));
 app.use('/api/libro', require('./routes/libro'));
 app.use('/api/favorito', require('./routes/favorito'));
-//app.use('/api/usuario', require('./routes/usuario'));
+app.use('/api/persona', require('./routes/persona'));
+//services
+app.use('/auth', require('./routes/auth'));
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));

@@ -18,8 +18,6 @@ router.get('/:id', readById);
 
 router.put('/:id', update);
 
-//router.delete('/:id', delet);
-
 router.delete('/:id', remove);
 
 router.param('id', objectById);

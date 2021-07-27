@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
+const { ObjectId } = Schema;
 
-const Favorito = new Schema({
-    estado: {
-        type: String,
-        required: true
-    },   
-    id_usario: {
-        type: String,
+const Favorito = new Schema({  
+    id_usuario: {
+        type: ObjectId,
+        ref: "Usuario",
         required: true
     },
     id_libro: {
-        type: String,
+        type: ObjectId,
+        ref: "Libro",
         required: true
     }
-});
+},{timestamps: true});
 
 module.exports = mongoose.model('Favorito', Favorito);
