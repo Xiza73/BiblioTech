@@ -76,13 +76,6 @@ exports.update = async (req, res) => {
     })
 }
 
-/*exports.delet = async (req, res) => {
-    await ClaseEjemplo.findByIdAndDelete(req.params.id);
-    res.json({
-        status: 1,
-        msg: "Objeto eliminado"
-    })
-}*/
 exports.remove = async (req, res) => {
     const obj = req.Libro;
     obj.remove((err, data) => {

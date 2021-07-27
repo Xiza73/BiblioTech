@@ -29,7 +29,7 @@ exports.create = async (req, res) => {
 }
 
 exports.read = async (req, res) => {
-    if(req == null){
+    if(!req.body){
     await Comentario.find().exec((err, data) => {
         if(err){
             return res.status(400).json({
