@@ -1,24 +1,48 @@
 const { signup } = require('../dao/authDAO');
+const { getRol } = require('../dao/rolDAO');
+const { addUsuario } = require('../dao/usuarioDAO');
+const { addPersona } = require('../dao/personaDAO');
+const Usuario = require('../models/Usuario');
 const formidable = require('formidable');
+const e = require('express');
+const saltRounds = 13
 
-
-exports.signup = (req, res) => {
-    let form = new formidable.IncomingForm()
-    form.keepExtensions = true
-    form.parse(req, (err, fields, files) => { 
-        if (err) {
-            return res.status(400).json({
-                error: "Error al leer datos"
-            })
+exports.register = async (req, res) => {
+    let data = req.body
+    let rol = await getRol(data.rol)
+    let respuesta = {
+      err: [],
+      msg: null
+    }
+    if (rol) {
+      let foto_data = null
+      let foto_tipo = null
+      if (data.foto){
+        foto_data = Buffer.from(data.foto, "base64");
+        foto_tipo = data.foto_tipo
+        if (foto_data>100000){
+          respuesta.err.push("La imagen debe pesar menos de 1MB")
+          foto_data = null
+          foto_tipo = null
         }
-        //encriptar contraseña antes de guardar
-        
-        res.json(signup({fields, files}));
-    })
+      }
+      let usuario = await addUsuario(data.usuario,data.correo,data.contrasenia,rol.id,foto_data,foto_tipo).catch(e => {
+        respuesta.err.push("error al añadir user")
+      })
+      if (usuario){
+        await addPersona(usuario._id,data.nombre,data.apellido).catch(e => {
+          respuesta.err.push("error al añadir persona")
+        }).then(respuesta.msg="añadido exitosamente")
+      }
+      
+    }else{
+      respuesta.err.push("rol no existe")
+    }
+    res.json(respuesta);
 }
 
 
-exports.signin = (req, res) => { 
+exports.login = (req, res) => { 
   // find the user based on email
   const {email, password} = req.body
   User.findOne({email}, (error, user) => {
@@ -43,7 +67,7 @@ exports.signin = (req, res) => {
   });
 }
 
-exports.signout = (req, res) => { 
+exports.logout = (req, res) => { 
   res.clearCookie('t')
   res.json({message: "Signout success"});
 };

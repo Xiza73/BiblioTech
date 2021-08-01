@@ -120,3 +120,5 @@ exports.objectById = async (req, res, next, id) => {
         next();
     })
 }
+
+exports.remove = () =>{}
