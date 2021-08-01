@@ -8,6 +8,7 @@ const { mongoose } = require('./database');
 
 //methods of libs
 const app = express();
+const {ejecutarPruebas} = require('./test/testRol')
 require('dotenv').config();
 
 //settings
@@ -38,3 +39,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 })
+ejecutarPruebas()
