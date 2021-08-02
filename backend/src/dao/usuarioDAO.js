@@ -16,7 +16,9 @@ exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_ty
 exports.findUsuarioByEmail = async (correo) =>{
     return Usuario.findOne({correo}).exec()
 }
-
+exports.deleteUsuarioByEmail = (correo) =>{
+  return Usuario.deleteOne({correo}).exec()
+}
 exports.findUsuarioWithRole = async (correo) => {
     return Usuario.aggregate( 
         [
@@ -59,3 +61,4 @@ exports.findUsuarioWithRole = async (correo) => {
           ]
       ).exec()
 }
+

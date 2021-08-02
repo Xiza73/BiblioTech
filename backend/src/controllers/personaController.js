@@ -18,7 +18,6 @@ exports.create = async (req, res) => {
                 nombre,
                 apellido } = fields;
         const persona = new Persona(fields);
-        console.log(persona)
         await persona.save((err, data) => {
             if(err){
                 return res.status(400).json({

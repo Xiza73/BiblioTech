@@ -8,7 +8,6 @@ const { mongoose } = require('./database');
 
 //methods of libs
 const app = express();
-const {ejecutarPruebas} = require('./test/testRol')
 require('dotenv').config();
 
 //settings
@@ -19,9 +18,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
-//database
 
 //routes
+app.use('/',require('./routes/base'))
 app.use('/api/claseEjemplo', require('./routes/claseEjemplo'));
 app.use('/api/comentario', require('./routes/comentario'));
 app.use('/api/usuario', require('./routes/usuario'));
@@ -36,7 +35,7 @@ app.use('/auth', require('./routes/auth'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //listen to port
-app.listen(app.get('port'), () => {
+const server = app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 })
-ejecutarPruebas()
+exports.server = server
