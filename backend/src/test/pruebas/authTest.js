@@ -28,13 +28,13 @@ exports.authTest = (server) =>{
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end( (err,res) =>{
-                    console.log(res.body)
                     if (!err){
                         findUsuarioByEmail(dataRegister.correo).then(v => {
                             dataRegister._id = v._id
                             done()
                         })
                     }else{
+                        console.log(res.body)
                         done(err)
                     }
                 })
