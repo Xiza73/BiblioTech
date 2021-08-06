@@ -25,6 +25,10 @@ const Libro = new Schema({
     fch_pub: {
         type: Date,
         required: true
+    },
+    imagen: {
+        data: Buffer,
+        contentType: String,
     }
 });
 

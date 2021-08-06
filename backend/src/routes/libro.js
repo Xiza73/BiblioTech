@@ -6,9 +6,9 @@ const { create,
         read, 
         readById,
         update, 
-        //delet,
         remove,
-        objectById } = require('../controllers/libroController');
+        readByCat,
+        readByTitle } = require('../controllers/libroController');
 
 router.post('/', create);
 
@@ -16,10 +16,14 @@ router.get('/', read);
 
 router.get('/:id', readById);
 
+router.get('/cat', readByCat);
+
+router.get('/tittle', readByTitle);
+
 router.put('/:id', update);
 
 router.delete('/:id', remove);
 
-router.param('id', objectById);
+
 
 module.exports = router;
