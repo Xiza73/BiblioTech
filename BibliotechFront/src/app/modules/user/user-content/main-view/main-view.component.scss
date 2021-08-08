@@ -1,0 +1,44 @@
+.main-view__container {
+  font-size: 62.5%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  .title__banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 320px;
+    padding: 0;
+    margin: 0;
+    background-color: #7e623c;
+    h1 {
+      width: 500px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 5rem;
+      line-height: 5.9rem;
+      text-align: center;
+      letter-spacing: 0.02em;
+      color: #fff7f7;
+    }
+    h2 {
+      width: 350px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+      text-align: center;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+    }
+  }
+  app-cards-container {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+  }
+}
