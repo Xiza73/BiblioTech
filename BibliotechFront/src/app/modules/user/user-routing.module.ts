@@ -13,14 +13,9 @@ const routes:Routes = [
         {
            path: 'perfil',
            component: ProfileComponent
-        },
-        {
-          
-        },
-        {
-            path:'',
-            redirectTo: ''
         }
+      
+      
     ],
 },
 ];
