@@ -1,4 +1,46 @@
-<form class="p-4 w-25">
+
+	<div >
+  <div class="wave" style="height: 950px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M86.62,-10.36 C5.92,70.55 245.77,76.47 189.90,151.47 L0.00,150.00 L0.00,0.00 Z" style="stroke: none; fill: #F0ECE3;"></path></svg></div>
+	<div class="container">
+		<div class="img">
+			<img src="../../../../../assets/bg.svg">
+		</div>
+		<div class="login-content">
+			<form action="index.html">
+				<img src="../../../../../assets/avatar.svg">
+				<h2 class="title">Bienvenido</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<!-- <h5>usuario</h5> -->
+           		   		<input type="email" class="input"  id="exampleInputEmail1" 
+                      name="user" placeholder="usuario"
+                      [(ngModel)]="user">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<!-- <h5>contraseña</h5> -->
+           		    	<input type="password" class="input"  id="exampleInputPassword1"
+                     name="password" placeholder="contraseña"
+                     [(ngModel)]="password">
+            	   </div>
+            	</div>
+            	<!-- <a href="#">Forgot Password?</a> -->
+            	<input type="submit" (click)="login()" class="btn" value="Login">
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+
+<!-- <form class="p-4 w-25">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
     <input
@@ -27,3 +69,4 @@
   </div>
   <button type="button" class="btn btn-primary" (click)="login()" >Submit</button>
 </form>
+ -->
