@@ -10,18 +10,9 @@ exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_ty
             type: foto_type
         }
       });   
-   try{
-      user.save()
-      return {
-        status: 1,
-        msg: "usuario insertado correctamente"
-      }
-    }catch{
-      return{
-          status: 0,
-          msg: "Error al insertar usuario"
-      }
-    }
+   
+     return user.save()
+      
 }
 
 exports.findUsuarioByEmail = async (correo) =>{
