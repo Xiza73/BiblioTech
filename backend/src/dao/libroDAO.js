@@ -58,7 +58,7 @@ exports.findLibroByCat = async (cat, cant) => {
 
 exports.findLibroByTitle = async (title) => {
     try{
-        let data = await Libro.find({ titulo: title }).exec();        
+        let data = await Libro.find({titulo : title}).exec();        
         return data
     }catch {
         return{
