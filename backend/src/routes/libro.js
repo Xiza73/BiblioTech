@@ -14,11 +14,11 @@ router.post('/', create);
 
 router.get('/', read);
 
-router.get('/:id', readById);
+router.get('/id', readById);
 
 router.get('/cat', readByCat);
 
-router.get('/tittle', readByTitle);
+router.get('/title', readByTitle);
 
 router.put('/:id', update);
 

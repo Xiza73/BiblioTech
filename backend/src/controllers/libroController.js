@@ -15,7 +15,7 @@ exports.create = async (req, res) => {
         foto_tipo = null;
       }
     }
-    let confirm = await addLibro(data.arc_libro, data.titulo, data.autor, data.genero, data.pais, data.fec_pub, foto_data, foto_tipo);
+    let confirm = await addLibro(data.arc_libro, data.titulo, data.autor, data.categoria, data.pais, data.fch_pub, foto_data, foto_tipo);
     if(confirm.error){
         return res.status(400).json(confirm);
     }
@@ -30,7 +30,7 @@ exports.read = async (req, res) => {
     return res.json(data);
 }
 
-exports.readById = async (req, res) => {    
+exports.readById = async (req, res) => { 
     let data = await findLibroById(req.params.id);
     if(data.error){
         return res.status(400).json(data);
@@ -40,7 +40,7 @@ exports.readById = async (req, res) => {
 
 exports.update = async (req, res) => {
     let data = req.body;
-    let confirm = await updateLibro(req.params.id, data.arc_libro, data.titulo, data.autor, data.genero, data.pais, data.fec_pub, foto_data, foto_tipo);
+    let confirm = await updateLibro(req.params.id, data.arc_libro, data.titulo, data.autor, data.categoria, data.pais, data.fec_pub, foto_data, foto_tipo);
     if(confirm.error){
         return res.status(400).json(confirm);
     }
@@ -56,10 +56,9 @@ exports.remove = async (req, res) => {
 }
 
 exports.readByCat = async (req, res) =>{
-    const {
-        genero,
-        cantidad }  = req.body;
-    let data = await findLibroByCat(genero, cantidad);
+    const {categoria,
+           cantidad} = req.body
+    let data = await findLibroByCat(categoria, cantidad);
     if(data.error){
         return res.status(400).json(data);
     }
@@ -67,8 +66,9 @@ exports.readByCat = async (req, res) =>{
 }
 
 exports.readByTitle = async (req, res) =>{
-    const {title}  = req.body;
-    let data = await findLibroByTitle(title);
+    console.log("hi"); 
+    const {  titulo  } = req.body
+    let data = await findLibroByTitle(titulo);    
     if(data.error){
         return res.status(400).json(data);
     }

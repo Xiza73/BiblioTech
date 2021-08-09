@@ -1,11 +1,11 @@
 const Libro = require('../models/Libro');
 
-exports.addLibro = async (arc_libro,titulo,autor,genero,pais,fch_pub,foto_data,foto_type) => {
+exports.addLibro = async (arc_libro,titulo,autor,categoria,pais,fch_pub,foto_data,foto_type) => {
     const lib = new Libro({
         arc_libro,
         titulo,
         autor,
-        genero,
+        categoria,
         pais,
         fch_pub,
         imagen:{
@@ -14,7 +14,7 @@ exports.addLibro = async (arc_libro,titulo,autor,genero,pais,fch_pub,foto_data,f
         }
     });
     try{
-        lib.save();
+        await lib.save();
         return {
             status: 1,
             msg: "Libro insertado correctamente"
@@ -29,7 +29,8 @@ exports.addLibro = async (arc_libro,titulo,autor,genero,pais,fch_pub,foto_data,f
 
 exports.findLibro = async () => {
     try{         
-        return Libro.find().exec();
+        let data = await Libro.find().exec();
+        return data;
     }catch{
         return{
             status: 0,
@@ -38,9 +39,15 @@ exports.findLibro = async () => {
     }
 } 
 
-exports.findLibroByCat = async (genero, cant) => {
+exports.findLibroByCat = async (cat, cant) => {
     try{
-        return Libro.find({genero}).limit(cant).exec();
+        let data;
+        if(cant>0)
+            data = await Libro.find({categoria : cat}).limit(Number(cant)).exec();
+        else{
+            data = [];
+        }
+        return data;
     }catch {
         return{
             status: 0,
@@ -49,9 +56,10 @@ exports.findLibroByCat = async (genero, cant) => {
     }
 }
 
-exports.findLibroByTitle = async (titulo) => {
+exports.findLibroByTitle = async (title) => {
     try{
-        return Libro.find({titulo}).exec();
+        let data = await Libro.find({ titulo: title }).exec();        
+        return data
     }catch {
         return{
             status: 0,
@@ -62,7 +70,8 @@ exports.findLibroByTitle = async (titulo) => {
 
 exports.findLibroById = async (id) => {
     try{
-        return Libro.findById(id).exec(); 
+        let data = await Libro.findById(id).exec();
+        return data;  
     }catch{
         return{
             status: 0,
@@ -73,7 +82,7 @@ exports.findLibroById = async (id) => {
 
 exports.removeLibro = async (id) => {
     try{
-        Libro.findByIdAndDelete(id).exec(); 
+        await Libro.findByIdAndDelete(id).exec(); 
         return {
             status: 1,
             msg: "Libro eliminado correctamente"
@@ -86,12 +95,12 @@ exports.removeLibro = async (id) => {
     }
 }
 
-exports.updateLibro = async (id,arc_libro,titulo,autor,genero,pais,fch_pub,foto_data,foto_type) => {
+exports.updateLibro = async (id,arc_libro,titulo,autor,categoria,pais,fch_pub,foto_data,foto_type) => {
     const lib = new Libro({
         arc_libro,
         titulo,
         autor,
-        genero,
+        categoria,
         pais,
         fch_pub,
         imagen:{
@@ -100,7 +109,7 @@ exports.updateLibro = async (id,arc_libro,titulo,autor,genero,pais,fch_pub,foto_
         }
     });
     try{
-        Libro.findByIdAndUpdate(id,lib);
+       await Libro.findByIdAndUpdate(id,lib);
         return {
             status: 1,
             msg: "Libro actualizado correctamente"
