@@ -57,7 +57,7 @@ exports.remove = async (req, res) => {
 
 exports.readByCat = async (req, res) =>{
     const {categoria,
-           cantidad} = req.body
+           cantidad} = req.query
     let data = await findLibroByCat(categoria, cantidad);
     if(data.error){
         return res.status(400).json(data);
@@ -67,7 +67,7 @@ exports.readByCat = async (req, res) =>{
 
 exports.readByTitle = async (req, res) =>{
     console.log("hi"); 
-    const {  titulo  } = req.body
+    const {  titulo  } = req.query
     let data = await findLibroByTitle(titulo);    
     if(data.error){
         return res.status(400).json(data);

@@ -1,11 +1,11 @@
 <section class="main__cards-container">
     <div class="cards__title">
-        <h1>{{category}}</h1>
-        <button>Ver más</button>
+        <h1>{{ titulo?'Resultados de ' + titulo: category|titlecase}}</h1>
+        <button *ngIf="!titulo">Ver más</button>
     </div>
     <div class="cards__container">
         <div *ngFor="let card of cards; let indice=index">
-            <app-card [date]="card.date" [book]="card.book" [description]="card.description"></app-card>
+            <app-card [card]="card"></app-card>
         </div>
     </div>
 </section>
