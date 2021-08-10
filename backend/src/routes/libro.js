@@ -7,6 +7,7 @@ const { create,
         readById,
         update, 
         remove,
+        readCat,
         readByCat,
         readByTitle } = require('../controllers/libroController');
 
@@ -17,6 +18,8 @@ router.get('/', read);
 router.get('/id', readById);
 
 router.get('/cat', readByCat);
+
+router.get('/cate', readCat);
 
 router.get('/title', readByTitle);
 

@@ -1,7 +1,7 @@
 const { errorHandler } = require('../helpers/dbErrorHandler');
 //Model
 const Libro = require('../models/Libro');
-const { addLibro, findLibro, findLibroByCat, findLibroByTitle, findLibroById, removeLibro, updateLibro } = require('../dao/libroDAO')
+const { addLibro, findLibro, findLibroByCat, findLibroByTitle, findLibroById, findLibroCat, removeLibro, updateLibro } = require('../dao/libroDAO')
 exports.create = async (req, res) => {
     let data = req.body;
     let foto_data = null;
@@ -31,7 +31,18 @@ exports.read = async (req, res) => {
 }
 
 exports.readById = async (req, res) => { 
-    let data = await findLibroById(req.params.id);
+    const {  id  } = req.query;
+    let data = await findLibroById(id);
+    if(data.error){
+        return res.status(400).json(data);
+    }
+    return res.json(data);
+}
+
+exports.readCat = async (req, res) => { 
+    
+    let data = await findLibroCat();
+    //console.log(data[1]._id);
     if(data.error){
         return res.status(400).json(data);
     }
@@ -57,7 +68,7 @@ exports.remove = async (req, res) => {
 
 exports.readByCat = async (req, res) =>{
     const {categoria,
-           cantidad} = req.body
+           cantidad} = req.query;
     let data = await findLibroByCat(categoria, cantidad);
     if(data.error){
         return res.status(400).json(data);
@@ -66,8 +77,8 @@ exports.readByCat = async (req, res) =>{
 }
 
 exports.readByTitle = async (req, res) =>{
-    console.log("hi"); 
-    const {  titulo  } = req.body
+    
+    const {  titulo  } = req.query;
     let data = await findLibroByTitle(titulo);    
     if(data.error){
         return res.status(400).json(data);

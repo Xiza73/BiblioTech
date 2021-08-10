@@ -57,8 +57,10 @@ exports.findLibroByCat = async (cat, cant) => {
 }
 
 exports.findLibroByTitle = async (title) => {
-    try{
-        let data = await Libro.find({titulo : title}).exec();        
+    try{        
+        let ti = new RegExp ('.*'+title+'.*','i')        
+       // console.log(t);
+    let data = await Libro.find({"titulo" : ti }).exec();        
         return data
     }catch {
         return{
@@ -118,6 +120,29 @@ exports.updateLibro = async (id,arc_libro,titulo,autor,categoria,pais,fch_pub,fo
         return{
             status: 0,
             msg: "No se pudo actualizar el libro"
+        };
+    }
+}
+
+exports.findLibroCat = async () => {
+    try{
+        
+        
+        let  data = await Libro.aggregate(
+            [
+                //{
+                //    '$match' : {} para poner una condicion como un where en sql
+                //},
+                {
+                    '$group' : { '_id': '$categoria' }  //como un group by en sql
+                }
+            ]).exec();
+        
+        return data;
+    }catch {
+        return{
+            status: 0,
+            msg: "No hay libros disponibles"
         };
     }
 }
