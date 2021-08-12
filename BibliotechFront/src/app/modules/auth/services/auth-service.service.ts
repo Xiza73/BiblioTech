@@ -20,4 +20,8 @@ export class AuthService {
     return this.http.post(`${this.API}/auth/register`, data)
   }
 
+  obtenerRoles(): Observable<any>{
+    return this.http.get(`${this.API}`)
+  }
+
 }
