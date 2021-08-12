@@ -9,8 +9,10 @@ exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_ty
             data: foto_data,
             type: foto_type
         }
-      });
-   return user.save()
+      });   
+   
+     return user.save()
+      
 }
 
 exports.findUsuarioByEmail = async (correo) =>{

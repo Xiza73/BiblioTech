@@ -1,6 +1,11 @@
 const Rol = require('../models/Rol');
 
-exports.getRol = (rol) =>{
-   let result = Rol.findOne({'nombre': rol}).exec()
-   return result
+exports.getRol = async (rol) =>{
+   try{
+      let result = await Rol.findOne({'nombre' : rol}).exec();
+      return result;
+   }
+   catch{ 
+      return false;
+  }
 } 

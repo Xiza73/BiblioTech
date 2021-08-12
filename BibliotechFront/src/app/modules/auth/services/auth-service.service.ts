@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   obtenerRoles(): Observable<any>{
-    return this.http.get(`${this.API}`)
+    return this.http.get(`${this.API}/api/rol`)
   }
 
 }

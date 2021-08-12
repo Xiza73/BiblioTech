@@ -32,7 +32,9 @@ exports.register = async (req, res) => {
       respuesta.err.push("error al añadir user")
       res.status(422)
     })
+    
     if (usuario) {
+      console.log("usuario creado" + usuario);
       await addPersona(usuario._id, data.nombre, data.apellido).catch(e => {
         respuesta.err.push("error al añadir persona")
         res.status(422)
