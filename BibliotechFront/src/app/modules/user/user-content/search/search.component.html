@@ -1,3 +1,3 @@
 <div class="main-view__container">
-    <app-cards-container [titulo]="'caballito'"></app-cards-container>
+    <app-cards-container   [titulo]="this.route.snapshot.paramMap.get('title')"></app-cards-container>
 </div>

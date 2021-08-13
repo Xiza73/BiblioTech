@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter,ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  @Output() onEnter:EventEmitter<string>= new EventEmitter()
+ @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>
+
+  
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
   }
 
+  buscar(){
+   
+    const valor = this.txtBuscar.nativeElement.value;
+    
+    this.onEnter.emit(valor)
+    
+  }
 }

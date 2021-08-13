@@ -103,6 +103,18 @@ form{
 	background-color: #38d39f;
 	transition: .4s;
 }
+select{
+	margin-top: 10px;
+	margin-right: 220px;
+	width: 300px;
+	border: none;
+	outline: none;
+
+	
+}
+option{
+	border-radius: 50px;
+}
 
 .input-div:before{
 	right: 50%;
@@ -187,6 +199,9 @@ a:hover{
 @media screen and (max-width: 1050px){
 	.container{
 		grid-gap: 5rem;
+	}
+	select{
+		width: 250px;
 	}
 }
 

@@ -6,7 +6,7 @@
     </div>
     <div class="input">
       <i class="fas fa-search"></i>
-      <input placeholder="escriba el libro que desea buscar" type="text" />
+      <input  (keyup.enter)="buscar()" #txtBuscar placeholder="escriba el libro que desea buscar" type="text" />
     </div>
     <ul>
       <li><a href="#">Ingresar</a></li>
