@@ -1,98 +1,77 @@
 const { errorHandler}  = require('../helpers/dbErrorHandler');
 //Model
 const Favorito = require('../models/Favorito');
+const { addFavorito,  findFavoritoByUser, findFavoritoByLib, findFavoritoRank, removeFavorito, updateFavorito } = require('../dao/FavoritoDAO')
+const {findLibroByTitle, findLibroById } = require('../dao/libroDAO')
 
 exports.create = async (req, res) => {
-    const { id_usuario,
-            id_libro } = req.body;
-    const obj = new Favorito({
-            estado,
-            id_usuario,
-            id_libro});
-    await obj.save((data, err) => {
-        if(err){
-            return res.status(400).json({
-                error: errorHandler(err),
-                status: 0,
-                msg: "Error al insertar datos"
-            });
-        }
-        res.json({
-            status: 1,
-            msg: "Insertado correctamente"
-        });
-    });    
+    let data = req.body;
+    let confirm = await addFavorito(data.id_usuario, data.id_libro);
+    if(confirm.error){
+        return res.status(400).json(confirm);
+    }
+    return res.json(confirm);   
 }
 
-exports.read = async (req, res) => {
-    await Favorito.find().exec((err, data) => {
-        if(err){
-            return res.status(400).json({
-                error: errorHandler(err),
-                status: 0,
-                msg: "Error al obtener datos"
-            })
-        }
-        res.json(data);
-    });
+exports.readRank = async (req, res) => {
+    const{
+        cantidad
+    } = req.query;
+    console.log(cantidad);
+    let data = await findFavoritoRank(cantidad);
+    if(data.error){
+        return res.status(400).json(data);
+    }
+    return res.json(data);
 }
 
-exports.readById = async (req, res) => {
-    await Favorito.findById(req.params.id)
-    .exec((err, data) => {
-        if(err){
-            return res.status(400).json({
-                error: errorHandler(err),
-                status: 0,
-                msg: "Error al encontrar objeto"
-            })
+exports.readByUser = async (req, res) => {
+    const{
+        id_usuario
+    } = req.query;
+    let datos = await findFavoritoByUser(id_usuario);
+    let data = [];
+    
+    if(datos.status!=0){
+        for(let i = 0 ; i < datos.length ; i++){
+            let p = await findLibroById(datos[i].id_libro);
+            data.push(p);
         }
-        res.json(data);
-    });
+            
+    }else{
+        data = datos;
+    }
+    if(data.error){
+        return res.status(400).json(data);
+    }
+    return res.json(data);
+}
+
+exports.readByLib = async (req, res) => {
+    const{
+        id_libro
+    } = req.query;
+    let data = await findFavoritoByLib(id_libro);
+    if(data.error){
+        return res.status(400).json(data);
+    }
+    return res.json(data);
 }
 
 exports.update = async (req, res) => {
-    const { estado,
-        id_usuario,
-        id_libro } = req.body;
-    await Favorito.findByIdAndUpdate(req.params.id, { 
-        estado,
-        id_usuario,
-        id_libro 
-    });
-    res.json({
-        status: 1,
-        msg: "Objeto actualizado"
-    })
+    let data = req.body;
+    let confirm = await updateFavorito(req.params.id, data.id_usuario, data.id_usuario);
+    if(confirm.error){
+        return res.status(400).json(confirm);
+    }
+    return res.json(confirm);
 }
 
 exports.remove = async (req, res) => {
-    const obj = req.Favorito;
-    await obj.remove((err, data) => {
-        if(err){
-            return res.status(400).json({
-                error: errorHandler(err),
-                status: 0,
-                msg: "Error al eliminar datos"
-            })
-        }
-        res.json({
-            status: 1,
-            msg: "Objeto eliminado"
-        });
-    })
+    let confirm = await removeFavorito(req.params.id);
+    if(confirm.error){
+        return res.status(400).json(confirm);
+    }
+    return res.json(confirm);
 }
 
-exports.objectById = async (req, res, next, id) => {
-    await Favorito.findById(id).exec((err, data) => {
-        if(err || !data){
-            return res.status(400).json({
-                error: err,
-                status: 0,
-                msg: "No se encontró el objeto"
-            })
-        }
-        req.Favorito = data;
-        next();
-    })
-}

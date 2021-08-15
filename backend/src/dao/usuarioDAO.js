@@ -16,7 +16,18 @@ exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_ty
 }
 
 exports.findUsuarioByEmail = async (correo) =>{
-    return Usuario.findOne({correo}).exec()
+    return Usuario.findById({correo}).exec()
+}
+exports.findUsuarioById = async (id) =>{
+  try{
+    let data = await Usuario.findById(id).exec();
+    return data;  
+  }catch{
+    return{
+        status: 0,
+        msg: "No se encuentra el usuario disponible"
+    };
+}
 }
 exports.deleteUsuarioByEmail = (correo) =>{
   return Usuario.deleteOne({correo}).exec()
