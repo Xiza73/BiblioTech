@@ -44,8 +44,8 @@ exports.findLibroByCat = async (cat, cant) => {
         let data;
         if(cant>0)
             data = await Libro.find({categoria : cat}).limit(Number(cant)).exec();
-        else{
-            data = [];
+        else {
+            data = await Libro.find({categoria : cat}).exec();;
         }
         return data;
     }catch {
