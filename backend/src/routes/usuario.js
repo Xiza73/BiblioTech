@@ -6,8 +6,7 @@ const { create,
         read, 
         readById,
         update, 
-        remove,
-        objectById } = require('../controllers/usuarioController');
+        remove } = require('../controllers/usuarioController');
 
 router.post('/', create);
 

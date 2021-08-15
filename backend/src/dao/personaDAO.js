@@ -10,9 +10,9 @@ exports.addPersona =  async (id_usuario,nombre,apellido) => {
 }
 exports.getPersonaByIdUsuario =  async (id_usuario) => {
 
-    return person.findOne({id_usuario}).exec()
+    return Persona.findOne(id_usuario).exec()
  }
 exports.deletePersonaByIdUsuario =  async (id_usuario) => {
-
-   return person.deleteOne({id_usuario}).exec()
+    
+    return Persona.deleteOne({"id_usuario" : id_usuario}).exec()
 }

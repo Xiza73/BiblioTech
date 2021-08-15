@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
       }
     }
 
-    let usuario = await addUsuario(data.usuario, data.correo, await bcrypt.hash(data.contrasenia, saltRounds), rol.id, foto_data, foto_tipo).catch(e => {
+    let usuario = await addUsuario(data.usuario, await bcrypt.hash(data.contrasenia, saltRounds), data.correo, rol.id, foto_data, foto_tipo).catch(e => {
       respuesta.err.push("error al añadir user")
       res.status(422)
     })

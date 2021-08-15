@@ -5,8 +5,8 @@ exports.authTest = (server) =>{
     describe("/auth pruebas para el modulo de login", function(){
         let dataRegister = {
             "usuario":"test",
-            "correo":"test",
             "contrasenia":"test",
+            "correo":"test",            
             "rol":"estudiante",
             "nombre":"test",
             "apellido":"test",
