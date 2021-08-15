@@ -1,4 +1,5 @@
 import { Component, EventEmitter,ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
 
@@ -9,15 +10,17 @@ import { UserService } from '../../services/user.service';
 })
 export class HeaderComponent implements OnInit {
   viewCat: boolean = false;
-  categories: any = ["educación", "informática", "robótica", "terror"];
+  categories: any = [];
 
   @Output() onEnter:EventEmitter<string>= new EventEmitter()
- @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>
+  @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>
 
   
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService,
+              private router:Router) { }
 
   ngOnInit(): void {
+    this.obtenerCategorias()
   }
 
   viewCategories(){
@@ -28,6 +31,27 @@ export class HeaderComponent implements OnInit {
     const valor = this.txtBuscar.nativeElement.value;
     
     this.onEnter.emit(valor)
-    
   }
+
+  obtenerCategorias(){
+    this.userService.obtenerCategorias()
+      .subscribe(data => {
+        this.categories = data.map((e: { _id: any; }) => e._id)
+      }, err => {
+        console.log(err)
+      }) 
+  }
+
+  buscarCategoria(categoria:string){
+    this.router.navigate(['usercontent/search/', {
+      titulo: "",
+      category: categoria,
+      cant: 0
+    }])
+   /*  .then(() => {
+      window.location.reload();
+    }); */
+  }
+
+
 }

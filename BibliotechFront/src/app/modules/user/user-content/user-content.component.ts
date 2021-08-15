@@ -13,10 +13,15 @@ export class UserContentComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   buscar(termino:string){
     this.titulo = termino;
   
-    this.router.navigate(['usercontent/search/',termino])
+    this.router.navigate(['usercontent/search/',{
+      titulo: termino,
+      category: null,
+      cant: 0
+    }])
    /*  .then(() => {
       window.location.reload();
     }); */

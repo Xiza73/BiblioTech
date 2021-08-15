@@ -1,3 +1,9 @@
 <div class="main-view__container">
-    <app-cards-container   [titulo]="this.route.snapshot.paramMap.get('title')"></app-cards-container>
+  <app-cards-container
+    [params]="{
+        titulo: this.route.snapshot.paramMap.get('titulo'),
+        category: this.route.snapshot.paramMap.get('category'),
+        cant: this.route.snapshot.paramMap.get('cant')
+    }"
+  ></app-cards-container>
 </div>

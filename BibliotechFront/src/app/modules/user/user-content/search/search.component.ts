@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit, OnChanges {
     
     this.titulo =  this.route.snapshot.paramMap.get('title')
     console.log('funciona porfavor')
-    console.log(this.route.snapshot.paramMap.get('title'))
+    console.log(this.route.snapshot.paramMap.keys)
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(":(")

@@ -17,6 +17,10 @@
     </div>
   </div>
   <div class="profile__favorites">
-    <app-cards-container [titulo]="'caballito blanco'"></app-cards-container>
+    <app-cards-container [params]="{
+      titulo: 'caballito',
+      category: null,
+      cant: 0
+    }"></app-cards-container>
   </div>
 </section>

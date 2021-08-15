@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
+    console.log(this.user)
+    console.log(this.password)
     this.authService.iniciarSesion({
       correo: this.user,
       contrasenia: this.password

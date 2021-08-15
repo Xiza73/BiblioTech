@@ -1,6 +1,6 @@
 <section class="main__cards-container">
     <div class="cards__title">
-        <h1 *ngIf="cards.length>0">{{ titulo?'Resultados de ' + titulo: category|titlecase }}</h1>
+        <h1 *ngIf="cards.length>0">{{ params.titulo?'Resultados de ' + params.titulo: params.category|titlecase }}</h1>
         <button class="button" *ngIf="cards.length>0">Ver más</button>
     </div>
     <div class="cards__container">
@@ -8,7 +8,7 @@
             <app-card [card]="card"></app-card>
         </div>
     </div>
-    <div  *ngIf="cards.length===0 && titulo.length>0" class="holamain">
+    <div  *ngIf="cards.length===0 && params.titulo" class="holamain">
         <div class="hit-the-floor">Sin resultados</div>
         <div class="ache">
             <h5 >Lo lamentamos, no hay registros de libros o autores con el termino buscado</h5>

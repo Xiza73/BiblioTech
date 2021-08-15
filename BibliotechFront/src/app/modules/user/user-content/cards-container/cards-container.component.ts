@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ViewsService } from '../../services/views.service';
 
 @Component({
   selector: 'app-cards-container',
@@ -10,54 +11,34 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./cards-container.component.scss']
 })
 export class CardsContainerComponent implements OnInit,OnChanges {
-  @Input() cant: Number = 0;
-  @Input() category: string = "";
-  @Input() titulo: string|any = "";
+  /*@Input() cant: Number = 10;
+  @Input() category: string|any = "";
+  @Input() titulo: string|any = "";*/
+  @Input() params: any = {
+    titulo: null,
+    category: null,
+    cant: 10
+  };
   cards: any[] = []
-  xd:any
 
-  constructor(private userService: UserService,
-              private route:Router) { }
+  constructor(private viewService: ViewsService,
+              private route: Router) { }
 
   ngOnInit(): void {
    
-    //this.todoLibros()
+    this.todoLibros()
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.titulo)
-    if(this.titulo){
+    console.log(this.params)
+    if(this.params.titulo){
       this.obtenerPorTitulo()
-      console.log(":xd")
+      return
     }
-    else{
-      this.obtenerCards()
-    }
-    console.log("aaaaa")
-    
+    this.obtenerCards()
   }
 
- /*  reinicio(){
-    console.log(this.titulo)
-    if(this.titulo){
-      this.obtenerPorTitulo()
-      console.log(":xd")
-    }
-    else{
-      this.obtenerCards()
-    }
-  } */
-
-  hola(){
-    console.log("hola")
-    if(this.titulo){
-      this.userService.obtenerLibros()
-    }else{
-      this.obtenerCards()
-    }
-  } 
-
   todoLibros(){
-    this.userService.obtenerLibros()
+    this.viewService.obtenerLibros()
       .subscribe(data => {
         console.log(data);
       }, err => {
@@ -66,32 +47,24 @@ export class CardsContainerComponent implements OnInit,OnChanges {
   }
 
   obtenerPorTitulo(){
-    this.xd=true;
-    this.userService.obtenerLibrosPorTitulo({
-      titulo: this.titulo
+    this.viewService.obtenerLibrosPorTitulo({
+      titulo: this.params.titulo
     }).subscribe(data => {
-      console.log(data)
       this.cards = data.body
     }, err => {
       console.log(err)
-      this.xd=false;
     })
   }
 
   obtenerCards(){
-    this.userService.obtenerLibrosPorCategoria({
-      categoria: this.category,
-      cantidad: this.cant
+    this.viewService.obtenerLibrosPorCategoria({
+      categoria: this.params.category,
+      cantidad: this.params.cant
     }).subscribe(data => {
-      console.log(data)
       this.cards = data.body
     }, err => {
       console.log(err);
     })
   }
-
- /*  volverAtras(){
-     this.route.navigate(['/]) 
-  } */
 }
 
