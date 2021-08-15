@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter,ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,11 @@ export class HeaderComponent implements OnInit {
   viewCat: boolean = false;
   categories: any = ["educación", "informática", "robótica", "terror"];
 
-  constructor() { }
+  @Output() onEnter:EventEmitter<string>= new EventEmitter()
+ @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>
+
+  
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
   }
@@ -18,6 +24,10 @@ export class HeaderComponent implements OnInit {
     this.viewCat = !this.viewCat;
   }
 
-  
-
+  buscar(){
+    const valor = this.txtBuscar.nativeElement.value;
+    
+    this.onEnter.emit(valor)
+    
+  }
 }

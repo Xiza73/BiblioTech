@@ -1,11 +1,18 @@
 <section class="main__cards-container">
     <div class="cards__title">
-        <h1>{{category}}</h1>
-        <button>Ver más</button>
+        <h1 *ngIf="cards.length>0">{{ titulo?'Resultados de ' + titulo: category|titlecase }}</h1>
+        <button class="button" *ngIf="cards.length>0">Ver más</button>
     </div>
     <div class="cards__container">
         <div *ngFor="let card of cards; let indice=index">
-            <app-card [date]="card.date" [book]="card.book" [description]="card.description"></app-card>
+            <app-card [card]="card"></app-card>
         </div>
+    </div>
+    <div  *ngIf="cards.length===0 && titulo.length>0" class="holamain">
+        <div class="hit-the-floor">Sin resultados</div>
+        <div class="ache">
+            <h5 >Lo lamentamos, no hay registros de libros o autores con el termino buscado</h5>
+        </div>
+        <button class="buttonb" routerLink="/usercontent/main-view" >Volver a la pagina principal</button>
     </div>
 </section>

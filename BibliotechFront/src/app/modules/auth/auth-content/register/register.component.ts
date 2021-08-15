@@ -12,12 +12,14 @@ export class RegisterComponent implements OnInit {
   usuario: String = "";
   correo: String = "";
   contrasenia: String = "";
+  roles: any = [];
   rol: String = "";
   foto: String = "";
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.obtenerRoles();
   }
 
   register(){
@@ -34,5 +36,14 @@ export class RegisterComponent implements OnInit {
     }, err => {
       console.log(err)
     })
+  }
+
+  obtenerRoles(){
+    this.authService.obtenerRoles()
+      .subscribe(data => {
+        this.roles = data.map((e: { nombre: any; }) => e.nombre);
+      }, err => {
+        console.log(err)
+      })
   }
 }
