@@ -12,7 +12,12 @@
     height: 320px;
     padding: 0;
     margin: 0;
-    background-color: #7e623c;
+
+    background: url("../../../../../assets/biblio.jpg");
+    background-size: cover;
+    height: 400px;
+    background-repeat: no-repeat;
+    
     h1 {
       width: 500px;
       font-family: Roboto;
@@ -41,4 +46,8 @@
       margin: 0;
       padding: 10px;
   }
+}
+.title__banner{
+  
+
 }

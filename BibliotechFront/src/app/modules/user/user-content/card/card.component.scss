@@ -7,8 +7,10 @@ $h-card: 395px;
   font-family: Open Sans;
   font-size: 62.5%;
   font-weight: normal;
+  
   line-height: 1.5rem;
   border-radius: 14px;
+  overflow: hidden;
   background-color: #fef2f2;
   box-shadow: 1px 2px 8px 1px #20212447;
   border-color: #dfe1e500;
@@ -46,13 +48,26 @@ $h-card: 395px;
     }
     h5 {
       margin-top: auto;
-      text-decoration: underline;
+      
       font-size: 0.8rem;
       font-weight: 600;
       line-height: 1.5rem;
       text-align: right;
       cursor: pointer;
       color: #007ae9;
+      margin-bottom: 40px;
     }
   }
+}
+.star{
+  margin-top: 5px;
+font-size: 20px;
+cursor: pointer;
+margin-left: 270px;
+color: #7e91a04f;
+
+
+}
+.star:hover{
+  color: #007ae9;
 }
