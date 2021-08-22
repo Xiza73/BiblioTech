@@ -3,20 +3,23 @@ const router = express.Router();
 
 //Controller
 const { create,
-        read, 
+        readAnt,
+        readNew, 
+        readByCom,  
         update, 
-        remove,
-        objectById } = require('../controllers/comentarioController');
+        remove } = require('../controllers/comentarioController');
 
 router.post('/', create);
 
-router.get('/', read);
+router.get('/com', readByCom);
 
-router.put('/', update);
+router.get('/desc', readNew);
 
-router.delete('/', remove);
+router.get('/asc', readAnt);
 
-router.param('', objectById);
+router.put('/:id', update);
+
+router.delete('/:id', remove);
 
 
 module.exports = router;

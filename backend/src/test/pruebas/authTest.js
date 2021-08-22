@@ -9,7 +9,7 @@ exports.authTest = (server) =>{
             "correo":"test",            
             "rol":"estudiante",
             "nombre":"test",
-            "apellido":"test",
+            "apellido":"test"
         }
         let dataLogin ={
             "correo":"test",
