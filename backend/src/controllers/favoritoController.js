@@ -67,7 +67,8 @@ exports.update = async (req, res) => {
 }
 
 exports.remove = async (req, res) => {
-    let confirm = await removeFavorito(req.params.id);
+    let data = req.body
+    let confirm = await removeFavorito(data.id_usuario,data.id_libro);
     if(confirm.error){
         return res.status(400).json(confirm);
     }

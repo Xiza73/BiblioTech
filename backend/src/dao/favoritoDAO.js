@@ -80,9 +80,9 @@ exports.findFavoritoRank = async (cant) => {
     }
 }
 
-exports.removeFavorito = async (id) => {
+exports.removeFavorito = async (id_usuario,id_libro) => {
     try{
-        await Favorito.findByIdAndDelete(id).exec(); 
+        await Favorito.findOneAndDelete({"id_usuario" : id_usuario},{"id_libro" : id_libro}).exec(); 
         return {
             status: 1,
             msg: "Se elimino el libro de la lista de favoritos correctamente"

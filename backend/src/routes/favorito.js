@@ -20,6 +20,6 @@ router.get('/lib', readByLib);
 
 router.put('/:id', update);
 
-router.delete('/:id', remove);
+router.delete('/', remove);
 
 module.exports = router;
