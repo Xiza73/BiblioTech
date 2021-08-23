@@ -14,6 +14,7 @@ export class CardsContainerComponent implements OnInit,OnChanges {
   /*@Input() cant: Number = 10;
   @Input() category: string|any = "";
   @Input() titulo: string|any = "";*/
+  verificaparams!: boolean
   @Input() params: any = {
     titulo: null,
     category: null,
@@ -25,11 +26,13 @@ export class CardsContainerComponent implements OnInit,OnChanges {
               private route: Router) { }
 
   ngOnInit(): void {
-   
+    this.verificaparams = false
+    
     this.todoLibros()
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.params)
+    this.verificaparams= false
     if(this.params.titulo){
       this.obtenerPorTitulo()
       return
@@ -51,6 +54,7 @@ export class CardsContainerComponent implements OnInit,OnChanges {
       titulo: this.params.titulo
     }).subscribe(data => {
       this.cards = data.body
+      this.verificaparams= true;
     }, err => {
       console.log(err)
     })
@@ -62,6 +66,7 @@ export class CardsContainerComponent implements OnInit,OnChanges {
       cantidad: this.params.cant
     }).subscribe(data => {
       this.cards = data.body
+      this.verificaparams= true;
     }, err => {
       console.log(err);
     })
