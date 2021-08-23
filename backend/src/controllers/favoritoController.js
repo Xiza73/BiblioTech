@@ -1,8 +1,8 @@
 const { errorHandler}  = require('../helpers/dbErrorHandler');
 //Model
 const Favorito = require('../models/Favorito');
-const { addFavorito,  findFavoritoByUser, findFavoritoByLib, findFavoritoRank, removeFavorito, updateFavorito } = require('../dao/FavoritoDAO')
-const {findLibroByTitle, findLibroById } = require('../dao/libroDAO')
+const { addFavorito,  findFavoritoByUser, findFavoritoByLib, findFavoritoRank, removeFavorito, updateFavorito } = require('../dao/favoritoDAO')
+const {findLibroById } = require('../dao/libroDAO')
 
 exports.create = async (req, res) => {
     let data = req.body;
@@ -17,7 +17,6 @@ exports.readRank = async (req, res) => {
     const{
         cantidad
     } = req.query;
-    console.log(cantidad);
     let data = await findFavoritoRank(cantidad);
     if(data.error){
         return res.status(400).json(data);
@@ -60,7 +59,7 @@ exports.readByLib = async (req, res) => {
 
 exports.update = async (req, res) => {
     let data = req.body;
-    let confirm = await updateFavorito(req.params.id, data.id_usuario, data.id_usuario);
+    let confirm = await updateFavorito(req.params.id, data.id_usuario, data.id_libro);
     if(confirm.error){
         return res.status(400).json(confirm);
     }

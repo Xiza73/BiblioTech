@@ -1,9 +1,10 @@
 const Usuario = require('../models/Usuario');
-exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_type) => {
+const bcrypt = require('bcrypt');
+exports.addUsuario =  async (usuario,contrasenia,correo,rol_id,foto_data,foto_type) => {
     const user = new Usuario({
         usuario,
-        correo,
         contrasenia,
+        correo,        
         rol: rol_id,
         avatar: {
             data: foto_data,
@@ -16,7 +17,7 @@ exports.addUsuario =  async (usuario,correo,contrasenia,rol_id,foto_data,foto_ty
 }
 
 exports.findUsuarioByEmail = async (correo) =>{
-    return Usuario.findById({correo}).exec()
+    return Usuario.findOne({correo}).exec()
 }
 exports.findUsuarioById = async (id) =>{
   try{
