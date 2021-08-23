@@ -7,11 +7,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./user-content.component.scss']
 })
 export class UserContentComponent implements OnInit {
- titulo:string = '';
-  constructor(private activatedRoute:ActivatedRoute,
+  titulo:string = '';
+  constructor(private route:ActivatedRoute,
               private router:Router) { }
 
   ngOnInit(): void {
+    const res:any = this.route.snapshot.paramMap.get('_id');
+    console.log(res);
   }
   
   buscar(termino:string){

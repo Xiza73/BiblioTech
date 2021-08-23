@@ -7,7 +7,7 @@ $h-card: 395px;
   font-family: Open Sans;
   font-size: 62.5%;
   font-weight: normal;
-  
+
   line-height: 1.5rem;
   border-radius: 14px;
   overflow: hidden;
@@ -48,7 +48,7 @@ $h-card: 395px;
     }
     h5 {
       margin-top: auto;
-      
+
       font-size: 0.8rem;
       font-weight: 600;
       line-height: 1.5rem;
@@ -59,15 +59,17 @@ $h-card: 395px;
     }
   }
 }
-.star{
+.star {
   margin-top: 5px;
-font-size: 20px;
-cursor: pointer;
-margin-left: 270px;
-color: #7e91a04f;
-
-
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 270px;
+  color: #7e91a04f;
 }
-.star:hover{
+.active_star {
+  margin-top: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 270px;
   color: #007ae9;
 }

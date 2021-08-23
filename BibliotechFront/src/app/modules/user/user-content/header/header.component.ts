@@ -28,9 +28,11 @@ export class HeaderComponent implements OnInit {
   }
 
   buscar(){
-    const valor = this.txtBuscar.nativeElement.value;
-    
-    this.onEnter.emit(valor)
+    if(this.txtBuscar.nativeElement.value){
+      const valor = this.txtBuscar.nativeElement.value;
+      
+      this.onEnter.emit(valor)
+    }
   }
 
   obtenerCategorias(){
@@ -53,5 +55,7 @@ export class HeaderComponent implements OnInit {
     }); */
   }
 
-
+  isLogged(){
+    return true;
+  }
 }
