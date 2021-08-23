@@ -20,7 +20,8 @@ exports.addFavorito = async (id_usuario,id_libro) => {
 }
 
 exports.findFavoritoByUser = async (usuario) => {
-    try{         
+    try{  
+        console.log(usuario)       
         let data = await Favorito.find({"id_usuario" : usuario}).exec();
         return data;
     }catch{

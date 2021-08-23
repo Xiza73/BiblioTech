@@ -6,11 +6,39 @@ const {findLibroById } = require('../dao/libroDAO')
 
 exports.create = async (req, res) => {
     let data = req.body;
-    let confirm = await addFavorito(data.id_usuario, data.id_libro);
+    let verify = await verificar(data.id_usuario, data.id_libro)
+    let confirm ;
+    
+    if(verify == 0){
+        confirm = await addFavorito(data.id_usuario, data.id_libro);
+    }else{
+        return res.status(400).json({
+            status: 0,
+            msg: "Este libro ya esta en la lista de favoritos"
+        });
+    }
     if(confirm.error){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);   
+}
+async function verificar(id_usuario,id_libro){
+    let confirm = 0;
+    let ver = await findFavoritoByLib(id_libro);
+    if(ver!=[]){
+        for(i=0;i<ver.length;i++){
+            if(ver.id_usuario==id_usuario){                
+                confirm = 1;
+                break;
+            }
+        }
+    } 
+    return confirm;
+}
+exports.verify  = async(req,res) => {
+    let data = req.query
+    let confirm = verificar(data.id_usuario, data.id_libro)
+    return res.json(confirm)
 }
 
 exports.readRank = async (req, res) => {
