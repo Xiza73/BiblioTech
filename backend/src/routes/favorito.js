@@ -6,6 +6,7 @@ const { create,
         readRank, 
         readByUser,
         readByLib,
+        verify,
         update, 
         //delet,
         remove} = require('../controllers/favoritoController');
@@ -16,10 +17,12 @@ router.get('/rank', readRank);
 
 router.get('/user', readByUser);
 
+router.get('/ver',verify)
+
 router.get('/lib', readByLib);
 
 router.put('/:id', update);
 
-router.delete('/:id', remove);
+router.delete('/', remove);
 
 module.exports = router;

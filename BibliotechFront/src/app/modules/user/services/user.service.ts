@@ -18,4 +18,19 @@ export class UserService {
     return this.http.get(`${this.API}${this.categoriesService}`)
   }
 
+  obtenerFavoritos(data: any): Observable<any>{
+    let params = new HttpParams();
+    params = params.append("id_usuario", data);
+
+    return this.http.get(`${this.API}/api/favorito/user`, { observe: "response", params })
+  }
+
+  aniadirFavorito(data: any): Observable<any>{
+    return this.http.post(`${this.API}/api/favorito`, data, { observe: "body"});
+  }
+
+  eliminarFavorito(data: any): Observable<any>{
+    return this.http.request('DELETE', `${this.API}/api/favorito`, { observe: "body", body: data})
+  }
+
 }

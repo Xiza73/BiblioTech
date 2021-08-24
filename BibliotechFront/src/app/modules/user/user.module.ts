@@ -10,11 +10,12 @@ import { MainViewComponent } from './user-content/main-view/main-view.component'
 import { HeaderComponent } from './user-content/header/header.component';
 import { FooterComponent } from './user-content/footer/footer.component';
 import { LibroComponent } from './user-content/libro/libro.component';
+import { FavoritesComponent } from './user-content/profile/favorites/favorites.component';
 
 
 
 @NgModule({
-  declarations: [UserContentComponent, ProfileComponent, SearchComponent, CardComponent, CardsContainerComponent, MainViewComponent, HeaderComponent, FooterComponent, LibroComponent],
+  declarations: [UserContentComponent, ProfileComponent, SearchComponent, CardComponent, CardsContainerComponent, MainViewComponent, HeaderComponent, FooterComponent, LibroComponent, FavoritesComponent],
   imports: [
     CommonModule,
     UserContentRoutingModule

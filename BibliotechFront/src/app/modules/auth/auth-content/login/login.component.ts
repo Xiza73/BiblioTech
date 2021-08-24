@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 
 @Component({
@@ -9,8 +10,13 @@ import { AuthService } from '../../services/auth-service.service';
 export class LoginComponent implements OnInit {
   user: String = "";
   password: String = "";
+  
+  @Output() onLogin:EventEmitter<string>= new EventEmitter()
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +29,7 @@ export class LoginComponent implements OnInit {
       contrasenia: this.password
     }).subscribe(data => {
       console.log(data)
+      this.router.navigate(['usercontent/', data.user])
     }, err => {
       console.log(err)
     })

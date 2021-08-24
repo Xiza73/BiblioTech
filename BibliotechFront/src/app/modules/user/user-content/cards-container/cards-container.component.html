@@ -1,23 +1,38 @@
 <section class="main__cards-container">
-    <div *ngIf="!verificaparams" class="d-flex justify-content-center spinnerr">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    <div class="cards__title">
-        <h1 *ngIf="cards.length>0 "> <span *ngIf="verificaparams">Resultados de {{  params.titulo?params.titulo: params.category|titlecase }}</span> </h1>
-        <button class="button" *ngIf="cards.length>0&&verificaparams">Ver más</button>
+  <div *ngIf="!verificaparams" class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
-    <div class="cards__container">
-        <div *ngFor="let card of cards; let indice=index">
-            <app-card *ngIf="verificaparams" [card]="card"></app-card>
-        </div>
+  </div>
+  <div class="cards__title">
+    <h1 *ngIf="cards.length > 0">
+      <span *ngIf="verificaparams">{{
+        params.titulo
+          ? "Resultados para " + params.titulo
+          : (params.category | titlecase)
+      }}</span>
+    </h1>
+    <button class="button" *ngIf="params.cant > 0">Ver más</button>
+  </div>
+  <div class="cards__container">
+    <div *ngFor="let card of cards; let indice = index">
+      <app-card *ngIf="verificaparams" [card]="card"></app-card>
     </div>
-    <div  *ngIf="cards.length===0 && params.titulo&&verificaparams " class="holamain">
-        <div class="hit-the-floor">Sin resultados</div>
-        <div class="ache">
-            <h5 >Lo lamentamos, no hay registros de libros o autores con el termino buscado</h5>
-        </div>  
-        <button class="buttonb" routerLink="/usercontent/main-view" >Volver a la pagina principal</button>
+  </div>
+  <!-- SIN RESULTADOS -->
+  <div
+    *ngIf="cards.length === 0 && params.titulo && verificaparams"
+    class="holamain"
+  >
+    <div class="hit-the-floor">Sin resultados</div>
+    <div class="ache">
+      <h5>
+        Lo lamentamos, no hay registros de libros o autores con el termino
+        buscado
+      </h5>
     </div>
+    <button class="buttonb" routerLink="/usercontent/main-view">
+      Volver a la pagina principal
+    </button>
+  </div>
 </section>
