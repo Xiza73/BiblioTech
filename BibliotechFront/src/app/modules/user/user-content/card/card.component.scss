@@ -22,6 +22,20 @@ $h-card: 395px;
     background-position: center;
     background-size: contain;
   }
+  .star {
+    margin-top: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 270px;
+    color: #7e91a04f;
+  }
+  .active_star {
+    margin-top: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 270px;
+    color: #007ae9;
+  }
   .card__book-data {
     display: flex;
     flex-direction: column;
@@ -58,18 +72,4 @@ $h-card: 395px;
       margin-bottom: 40px;
     }
   }
-}
-.star {
-  margin-top: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 270px;
-  color: #7e91a04f;
-}
-.active_star {
-  margin-top: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 270px;
-  color: #007ae9;
 }
