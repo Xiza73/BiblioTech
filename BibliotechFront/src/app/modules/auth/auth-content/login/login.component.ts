@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       contrasenia: this.password
     }).subscribe(data => {
       console.log(data)
-      this.router.navigate(['usercontent/', data.user])
+      this.router.navigate(['usercontent/'])
     }, err => {
       console.log(err)
     })
