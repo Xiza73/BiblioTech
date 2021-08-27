@@ -37,7 +37,7 @@ async function verificar(id_usuario,id_libro){
 }
 exports.verify  = async(req,res) => {
     let data = req.query
-    let confirm = verificar(data.id_usuario, data.id_libro)
+    let confirm = await verificar(data.id_usuario, data.id_libro)
     return res.json(confirm)
 }
 
