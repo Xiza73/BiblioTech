@@ -48,12 +48,14 @@ exports.register = async (req, res) => {
     respuesta.err.push("rol no existe")
     res.status(422)
   }
+  respuesta.ok = true 
   res.json(respuesta);
 
 }
 
 
 exports.login = async (req, res) => {
+  
   let respuesta = {
     err: [],
     msg: null
@@ -78,6 +80,7 @@ exports.login = async (req, res) => {
         nombre : usuario.nombre + ' ' + usuario.apellido,
         rol : usuario.rol,
       }
+      respuesta.ok = true
       respuesta.msg="Logueo exitoso"
       res.status(200)
     }else{
