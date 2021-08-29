@@ -23,8 +23,10 @@
       />
     </div>
     <ul *ngIf="isLogged()">
-      <li><a href="#">Ingresar</a></li>
-      <li><a href="#">Registro</a></li>
+      <li *ngIf="!usuario"><a href="#">Ingresar</a></li>
+      <li *ngIf="!usuario"><a href="#">Registro</a></li>
+      <li *ngIf="usuario"><a href="#">{{usuario.name}}</a></li>
+      <li *ngIf="usuario" ><a (click)="logout()" class="pointer" >LOGOUT</a></li>
     </ul>
   </div>
 </div>

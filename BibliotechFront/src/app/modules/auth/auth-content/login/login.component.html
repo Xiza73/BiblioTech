@@ -6,7 +6,7 @@
 			<img src="../../../../../assets/bg.svg">
 		</div>
 		<div class="login-content">
-			<form action="index.html">
+			<form action="index.html" [formGroup]="miFormulario" (ngSubmit)="login()">
 				<img src="../../../../../assets/avatar.svg">
 				<h2 class="title">Bienvenido</h2>
            		<div class="input-div one">
@@ -16,8 +16,8 @@
            		   <div class="div">
            		   		<!-- <h5>usuario</h5> -->
            		   		<input type="email" class="input"  id="exampleInputEmail1" 
-                      name="user" placeholder="usuario"
-                      [(ngModel)]="user">
+                      formControlName="user" placeholder="usuario"
+                      >
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -27,12 +27,12 @@
            		   <div class="div">
            		    	<!-- <h5>contraseña</h5> -->
            		    	<input type="password" class="input"  id="exampleInputPassword1"
-                     name="password" placeholder="contraseña"
-                     [(ngModel)]="password">
+                     formControlName="password" placeholder="contraseña"
+                  >
             	   </div>
             	</div>
             	<!-- <a href="#">Forgot Password?</a> -->
-            	<input type="submit" (click)="login()" class="btn" value="Login">
+            	<input type="submit" [disabled]="miFormulario.invalid"  class="btn" value="Login">
             </form>
         </div>
     </div>

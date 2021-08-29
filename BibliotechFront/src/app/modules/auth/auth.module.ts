@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthContentComponent } from './auth-content/auth-content.component';
 import { LoginComponent } from './auth-content/login/login.component';
 import { RegisterComponent } from './auth-content/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from './auth-routing.module';
 
@@ -14,7 +14,8 @@ import { AuthRoutingModule } from './auth-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    ReactiveFormsModule
   ]
  /*  exports: [
     LoginComponent,

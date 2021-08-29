@@ -2,6 +2,7 @@ import { Component, EventEmitter,ElementRef, OnInit, Output, ViewChild } from '@
 import { Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../../auth/services/auth-service.service';
 
 @Component({
   selector: 'app-header',
@@ -15,12 +16,16 @@ export class HeaderComponent implements OnInit {
   @Output() onEnter:EventEmitter<string>= new EventEmitter()
   @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>
 
-  
+  get usuario(){
+    return this.authService.usuario
+  }
   constructor(private userService:UserService,
-              private router:Router) { }
+              private router:Router,
+              private authService:AuthService) { }
 
   ngOnInit(): void {
-    this.obtenerCategorias()
+    this.obtenerCategorias();
+    
   }
 
   viewCategories(){
@@ -57,5 +62,9 @@ export class HeaderComponent implements OnInit {
 
   isLogged(){
     return true;
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/auth'])
   }
 }
