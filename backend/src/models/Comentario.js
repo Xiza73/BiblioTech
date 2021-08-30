@@ -18,7 +18,12 @@ const Comentario = new Schema({
         type: ObjectId,
         ref: "Libro",
         required: true
-    }
+    },
+    id_respuesta:[{
+        type: ObjectId,
+        ref: "Comentario",
+        required: false       
+    }]
 },{timestamps: true});
 
 module.exports = mongoose.model('Comentario', Comentario);
