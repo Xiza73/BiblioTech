@@ -10,8 +10,8 @@ exports.create = async (req, res) => {
 }
 
 exports.createRespuesta = async (req, res) => {
-
-    let confirm = await addRespuesta(req.body.comentario, req.body.id_comentario);
+    let data = req.body
+    let confirm = await addRespuesta(data.comentario, data.id_usuario ,data.id_comentario);
     if(confirm.error){
         return res.status(400).json(confirm);
     }

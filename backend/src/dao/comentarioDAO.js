@@ -25,13 +25,13 @@ exports.addComentario = async (comentario,id_usuario,id_libro) => {
 }
 
 
-exports.addRespuesta = async (comentario,id) => {
+exports.addRespuesta = async (comentario,id_us,id) => {
     try{
         let come = await Comentario.findById(id);
         const id_respuesta  = [];
         const es_comentario = 0;
         const id_libro = come.id_libro;
-        const id_usuario = come.id_usuario;
+        const id_usuario = id_us;
         console.log(id)
         const com = new Comentario({
             comentario,
@@ -170,22 +170,9 @@ exports.findComentarioNew = async (libro) => {
                       'localField': 'id_respuesta', 
                       'foreignField': '_id', 
                       'as': 'respuesta'
-                    },
-                    '$lookup': {
-                        'from': 'personas', 
-                        'localField': 'id_usuario', 
-                        'foreignField': 'id_usuario', 
-                        'as': 'nombre'
-                    },
-                    '$unwind': {
-                        'path': '$nombre'
-                    },
-                    '$addFields': {
-                        'nombre': '$nombre.nombre', 
-                        'apellido': '$nombre.apellido'
-                    }
+                    }                    
                 },   
-                {
+               /* {
                     '$lookup': {
                       'from': 'personas', 
                       'localField': 'id_usuario', 
@@ -203,7 +190,16 @@ exports.findComentarioNew = async (libro) => {
                         'nombre': '$nombre.nombre', 
                         'apellido': '$nombre.apellido'
                     }
-                },     
+                },    */
+                {
+                    '$graphLookup': {
+                       'from': 'personas',
+                       'startWith': '$id_usuario',
+                       'connectFromField': 'id_usuario',
+                       'connectToField': 'id_usuario',
+                       'as': 'nombre'
+                    }
+                 }, 
                 {
                     '$sort' : {'createdAt': 1}
                 }
