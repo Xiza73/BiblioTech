@@ -56,7 +56,7 @@ exports.findComentarioByCom = async (comentario)  => {
        // console.log(t);
         let data = await Libro.find({"comentario" : ti }).populate({
             path: "id_respuesta"
-        }).exec();        
+        }).populate({path: "id_usuario"}).exec();       
         return data
     }catch {
         return{
@@ -70,7 +70,7 @@ exports.findComentarioByUser = async (usuario) => { // para que los admins miren
     try{         
         let data = await Comentario.find({"id_usuario" : usuario}).populate({
             path: "id_respuesta"
-        }).exec();
+        }).populate({path: "id_usuario"}).exec();
         return data;
     }catch{
         return{
@@ -108,7 +108,7 @@ exports.findComentarioAnt = async (libro) => {
                 
             ]).populate({
                     path: "id_respuesta"
-            }).exec();
+            }).populate({path: "id_usuario"}).exec();
         return data;
     }catch {
         return{
@@ -134,7 +134,7 @@ exports.findComentarioNew = async (libro) => {
                 
             ]).populate({
                 path: "id_respuesta"
-            }).exec();
+            }).populate({path: "id_usuario"}).exec();
         return data;
     }catch {
         return{
