@@ -22,9 +22,13 @@ exports.create = async (req, res) => {
 async function verificar(id_usuario,id_libro){
     let confirm = 0;
     let ver = await findFavoritoByLib(id_libro);
+    console.log(ver)
     if(ver!=[]){
+        console.log(id_usuario)
+        console.log(id_libro) 
         for(i=0;i<ver.length;i++){
-            if(ver.id_usuario==id_usuario){                
+            if(ver[i].id_usuario==id_usuario){     
+                console.log(id_libro)           
                 confirm = 1;
                 break;
             }

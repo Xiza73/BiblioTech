@@ -1,0 +1,32 @@
+<div class="header">
+  <div class="nav">
+    <img routerLink="main-view" src="./assets/logo.png" alt="" />
+    <div
+      (mouseenter)="viewCategories()"
+      (mouseleave)="viewCategories()"
+      class="part1"
+    >
+      <p href="#">Categoria</p>
+      <div class="categories" *ngIf="viewCat">
+        <p (click)="buscarCategoria(item)" *ngFor="let item of categories">
+          {{ item }}
+        </p>
+      </div>
+    </div>
+    <div class="input">
+      <i class="fas fa-search"></i>
+      <input
+        (keyup.enter)="buscar()"
+        #txtBuscar
+        placeholder="escriba el libro que desea buscar"
+        type="text"
+      />
+    </div>
+    <ul *ngIf="isLogged()">
+      <li *ngIf="!usuario"><a href="#">Ingresar</a></li>
+      <li *ngIf="!usuario"><a href="#">Registro</a></li>
+      <li *ngIf="usuario"><a href="#">{{usuario.name}}</a></li>
+      <li *ngIf="usuario" ><a (click)="logout()" class="pointer" >LOGOUT</a></li>
+    </ul>
+  </div>
+</div>
