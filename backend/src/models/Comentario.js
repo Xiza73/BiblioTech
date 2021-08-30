@@ -8,7 +8,10 @@ const Comentario = new Schema({
         trim: true,
         required: true,
         maxlength: 2000
-    },    
+    },
+    es_comentario : {
+        type: Number, // 1 comentario 0 respuesta
+    },
     id_usuario: {
         type: ObjectId,
         ref: "Usuario",

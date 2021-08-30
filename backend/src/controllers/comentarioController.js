@@ -10,12 +10,12 @@ exports.create = async (req, res) => {
 }
 
 exports.createRespuesta = async (req, res) => {
-    let data = req.body;
-    let confirm = await addRespuesta(data.comentario,data.id_libro);
+
+    let confirm = await addRespuesta(req.body.comentario, req.body.id_comentario);
     if(confirm.error){
         return res.status(400).json(confirm);
     }
-    return res.json(confirm);  
+    return res.json(confirm);
 }
 
 exports.readNew = async (req, res) => {

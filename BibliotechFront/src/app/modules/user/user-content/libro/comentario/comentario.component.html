@@ -1,0 +1,49 @@
+<div class="comment-main-level">
+  <!-- Avatar -->
+  <div class="comment-avatar">
+    <img
+      src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
+      alt=""
+    />
+  </div>
+  <!-- Contenedor del Comentario -->
+  <div class="comment-box">
+    <div class="comment-head">
+      <h6 class="comment-name by-author">
+        {{ comentario.nombre | titlecase }}&nbsp;
+        {{ comentario.apellido | titlecase }}
+        <a href=""></a>
+      </h6>
+      <span>hace 20 minutos</span>
+      <i class="fa fa-reply"></i>
+      <i class="fa fa-heart"></i>
+    </div>
+    <div class="comment-content">
+      {{ comentario.comentario }}
+    </div>
+  </div>
+</div>
+
+<ul class="comments-list reply-list">
+  <li *ngFor="let res of comentario.respuesta">
+    <!-- Avatar -->
+    <div class="comment-avatar">
+      <img
+        src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
+        alt=""
+      />
+    </div>
+    <!-- Contenedor del Comentario -->
+    <div class="comment-box">
+      <div class="comment-head">
+        <h6 class="comment-name"><a href=""></a></h6>
+        <span>hace 10 minutos</span>
+        <i class="fa fa-reply"></i>
+        <i class="fa fa-heart"></i>
+      </div>
+      <div class="comment-content">
+        {{ res.comentario }}
+      </div>
+    </div>
+  </li>
+</ul>

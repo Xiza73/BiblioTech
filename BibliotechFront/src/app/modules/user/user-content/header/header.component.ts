@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit {
       
       this.onEnter.emit(valor)
     }
+    this.txtBuscar.nativeElement.value = "";
   }
 
   obtenerCategorias(){

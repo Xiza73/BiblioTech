@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ViewsService } from '../../services/views.service';
 
@@ -13,6 +14,7 @@ export class CardComponent implements OnInit {
   active: boolean = false;
 
   constructor(private userService: UserService,
+              private router:Router,
               private viewService: ViewsService) { }
 
   ngOnInit(): void {
@@ -50,4 +52,9 @@ export class CardComponent implements OnInit {
     this.active = !this.active
   }
   
+  detallesLibro(){
+    this.router.navigate(['usercontent/libro/', {
+      id: this.card._id
+    }])
+  }
 }
