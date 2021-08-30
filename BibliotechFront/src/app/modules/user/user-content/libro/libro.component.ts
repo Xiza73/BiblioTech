@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 import { ViewsService } from '../../services/views.service';
 
 @Component({
@@ -8,13 +9,15 @@ import { ViewsService } from '../../services/views.service';
   styleUrls: ['./libro.component.scss']
 })
 export class LibroComponent implements OnInit {
-  private idLibro: string | null = '';
+  public idLibro: string | null = '';
   private libro: any;
   private comentarios: [] = [];
+  comentario: string = "";
 
   constructor(
     private route:ActivatedRoute,
-    private libroService: ViewsService
+    private libroService: ViewsService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +43,23 @@ export class LibroComponent implements OnInit {
     }, err => {
       console.log("Sáquenme de la FISI por favor")
     })
+  }
+
+  comentar(){
+    if(this.comentario){
+      this.userService.comentar({
+        comentario: this.comentario,
+        id_libro: this.idLibro
+      }).subscribe(data => {
+        console.log(data)
+      }, err => {
+        console.log("pipipi")
+      })
+      this.comentario = ""
+      this.obtenerComentarios(this.idLibro)
+    }else{
+      console.log("Escribe algo we")
+    }
   }
 
   getLibro(){

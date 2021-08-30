@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../auth/services/auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class UserService {
   private API: String;
   private categoriesService: String
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient,
+    private authService: AuthService) { 
     this.API = 'http://localhost:5000';
     this.categoriesService = '/api/libro/cate';
   }
@@ -31,6 +33,12 @@ export class UserService {
 
   eliminarFavorito(data: any): Observable<any>{
     return this.http.request('DELETE', `${this.API}/api/favorito`, { observe: "body", body: data})
+  }
+
+  comentar(data: any): Observable<any>{
+    data.id_usuario = this.authService.usuario.id_usuario
+    console.log(data)
+    return this.http.post(`${this.API}/api/comentario`, data, { observe: "body"});
   }
 
 }

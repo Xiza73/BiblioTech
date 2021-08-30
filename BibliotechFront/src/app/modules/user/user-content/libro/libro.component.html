@@ -1,2 +1,14 @@
-<app-detalle-libro [libro] = 'getLibro()'></app-detalle-libro>
-<app-comentarios-container [data] = 'getComentarios()'></app-comentarios-container>
+<app-detalle-libro [libro]="getLibro()"></app-detalle-libro>
+<app-comentarios-container
+  [data]="getComentarios()"
+></app-comentarios-container>
+<div class="input-group px-5 mb-5">
+  <textarea
+    [(ngModel)]="comentario"
+    class="form-control"
+    aria-label="Comentario"
+  ></textarea>
+  <span class="input-group-text comentar-button" (click)="comentar()"
+    >Comentar</span
+  >
+</div>

@@ -14,6 +14,7 @@ import { FavoritesComponent } from './user-content/profile/favorites/favorites.c
 import { DetalleLibroComponent } from './user-content/libro/detalle-libro/detalle-libro.component';
 import { ComentariosContainerComponent } from './user-content/libro/comentarios-container/comentarios-container.component';
 import { ComentarioComponent } from './user-content/libro/comentario/comentario.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,9 @@ import { ComentarioComponent } from './user-content/libro/comentario/comentario.
   declarations: [UserContentComponent, ProfileComponent, SearchComponent, CardComponent, CardsContainerComponent, MainViewComponent, HeaderComponent, FooterComponent, LibroComponent, FavoritesComponent, DetalleLibroComponent, ComentariosContainerComponent, ComentarioComponent],
   imports: [
     CommonModule,
-    UserContentRoutingModule
+    UserContentRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }
