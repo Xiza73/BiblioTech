@@ -170,6 +170,19 @@ exports.findComentarioNew = async (libro) => {
                       'localField': 'id_respuesta', 
                       'foreignField': '_id', 
                       'as': 'respuesta'
+                    },
+                    '$lookup': {
+                        'from': 'personas', 
+                        'localField': 'id_usuario', 
+                        'foreignField': 'id_usuario', 
+                        'as': 'nombre'
+                    },
+                    '$unwind': {
+                        'path': '$nombre'
+                    },
+                    '$addFields': {
+                        'nombre': '$nombre.nombre', 
+                        'apellido': '$nombre.apellido'
                     }
                 },   
                 {
@@ -240,5 +253,3 @@ exports.updateComentario = async (id,comentario,id_usuario,id_libro,id_respuesta
         };
     }
 }
-
-

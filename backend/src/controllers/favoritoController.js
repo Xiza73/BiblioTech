@@ -103,4 +103,3 @@ exports.remove = async (req, res) => {
     }
     return res.json(confirm);
 }
-
