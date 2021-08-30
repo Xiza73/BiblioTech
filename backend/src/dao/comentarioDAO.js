@@ -2,10 +2,12 @@ const Comentario = require('../models/Comentario');
 var mongoose = require('mongoose')
 exports.addComentario = async (comentario,id_usuario,id_libro) => {
     let id_respuesta  = []
+    let es_comentario = 1;
     const com = new Comentario({
             comentario,
             id_usuario,
             id_libro,
+            es_comentario,
             id_respuesta       
     });
     try{
@@ -24,20 +26,24 @@ exports.addComentario = async (comentario,id_usuario,id_libro) => {
 
 
 exports.addRespuesta = async (comentario,id) => {
-    let id_respuesta  = []
-    const com = new Comentario({
-        comentario,
-        id_usuario,
-        id_libro,
-        id_respuesta
-    });
     try{
         let come = await Comentario.findById(id);
-        com.id_libro = come.id_libro;
-        com.id_usuario = come.id_usuario;
+        const id_respuesta  = [];
+        const es_comentario = 0;
+        const id_libro = come.id_libro;
+        const id_usuario = come.id_usuario;
+        console.log(id)
+        const com = new Comentario({
+            comentario,
+            id_usuario,
+            id_libro,
+            id_respuesta,
+            es_comentario
+        });
+        console.log(comentario)
         let respuesta = await com.save();
         come.id_respuesta.push(respuesta)
-        await Comentario.findByIdAndUpdate(id,come);
+        await Comentario.updateOne({_id: id},come);
         return {
             status: 1,
             msg: "Respuesta añadida correctamente"
@@ -95,20 +101,47 @@ exports.findComentarioByUser = async (usuario) => { // para que los admins miren
 exports.findComentarioAnt = async (libro) => {
     try{
         let data;            
-            data = await Comentario.aggregate([
+            data = await Comentario
+            .aggregate([
                 {
                     '$match': {
-                      'id_libro':  mongoose.Types.ObjectId(libro)
+                      'id_libro':  mongoose.Types.ObjectId(libro),
+                      'es_comentario': 1
                     }
                 },
-                               
+                {
+                    '$lookup': {
+                      'from': 'comentarios', 
+                      'localField': 'id_respuesta', 
+                      'foreignField': '_id', 
+                      'as': 'respuesta'
+                    }
+                },   
+                {
+                    '$lookup': {
+                      'from': 'personas', 
+                      'localField': 'id_usuario', 
+                      'foreignField': 'id_usuario', 
+                      'as': 'nombre'
+                    }
+                },
+                {
+                    '$unwind': {
+                        'path': '$nombre'
+                    }
+                }, 
+                {
+                    '$addFields': {
+                        'nombre': '$nombre.nombre', 
+                        'apellido': '$nombre.apellido'
+                    }
+                },     
                 {
                     '$sort' : {'createdAt': -1}
                 }
                 
-            ]).populate({
-                    path: "id_respuesta"
-            }).populate({path: "id_usuario"}).exec();
+            ])
+            .exec();
         return data;
     }catch {
         return{
@@ -123,18 +156,47 @@ exports.findComentarioNew = async (libro) => {
     try{
         let data;
         
-            data = await Comentario.aggregate([
+            data = await Comentario
+            .aggregate([
                 {
-                    '$match' : {"id_libro" : mongoose.Types.ObjectId(libro)} //para poner una condicion como un where en sql
+                    '$match': {
+                      'id_libro':  mongoose.Types.ObjectId(libro),
+                      'es_comentario': 1
+                    }
                 },
-                               
+                {
+                    '$lookup': {
+                      'from': 'comentarios', 
+                      'localField': 'id_respuesta', 
+                      'foreignField': '_id', 
+                      'as': 'respuesta'
+                    }
+                },   
+                {
+                    '$lookup': {
+                      'from': 'personas', 
+                      'localField': 'id_usuario', 
+                      'foreignField': 'id_usuario', 
+                      'as': 'nombre'
+                    }
+                },
+                {
+                    '$unwind': {
+                        'path': '$nombre'
+                    }
+                }, 
+                {
+                    '$addFields': {
+                        'nombre': '$nombre.nombre', 
+                        'apellido': '$nombre.apellido'
+                    }
+                },     
                 {
                     '$sort' : {'createdAt': 1}
-                },
+                }
                 
-            ]).populate({
-                path: "id_respuesta"
-            }).populate({path: "id_usuario"}).exec();
+            ])
+            .exec();
         return data;
     }catch {
         return{

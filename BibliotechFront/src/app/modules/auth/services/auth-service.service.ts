@@ -32,7 +32,8 @@ export class AuthService {
 
 
             name:resp.user?.nombre,
-            correo:resp.user?.correo
+            correo:resp.user?.correo,
+            rol:resp.user?.rol
        
 
             

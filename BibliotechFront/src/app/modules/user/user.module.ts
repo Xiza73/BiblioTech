@@ -11,11 +11,14 @@ import { HeaderComponent } from './user-content/header/header.component';
 import { FooterComponent } from './user-content/footer/footer.component';
 import { LibroComponent } from './user-content/libro/libro.component';
 import { FavoritesComponent } from './user-content/profile/favorites/favorites.component';
+import { DetalleLibroComponent } from './user-content/libro/detalle-libro/detalle-libro.component';
+import { ComentariosContainerComponent } from './user-content/libro/comentarios-container/comentarios-container.component';
+import { ComentarioComponent } from './user-content/libro/comentario/comentario.component';
 
 
 
 @NgModule({
-  declarations: [UserContentComponent, ProfileComponent, SearchComponent, CardComponent, CardsContainerComponent, MainViewComponent, HeaderComponent, FooterComponent, LibroComponent, FavoritesComponent],
+  declarations: [UserContentComponent, ProfileComponent, SearchComponent, CardComponent, CardsContainerComponent, MainViewComponent, HeaderComponent, FooterComponent, LibroComponent, FavoritesComponent, DetalleLibroComponent, ComentariosContainerComponent, ComentarioComponent],
   imports: [
     CommonModule,
     UserContentRoutingModule
