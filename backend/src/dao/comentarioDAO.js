@@ -1,10 +1,12 @@
 const Comentario = require('../models/Comentario');
 var mongoose = require('mongoose')
 exports.addComentario = async (comentario,id_usuario,id_libro) => {
+    let id_respuesta  = []
     const com = new Comentario({
             comentario,
             id_usuario,
-            id_libro        
+            id_libro,
+            id_respuesta       
     });
     try{
         await com.save();
@@ -20,11 +22,41 @@ exports.addComentario = async (comentario,id_usuario,id_libro) => {
     }
 }
 
+
+exports.addRespuesta = async (comentario,id) => {
+    let id_respuesta  = []
+    const com = new Comentario({
+        comentario,
+        id_usuario,
+        id_libro,
+        id_respuesta
+    });
+    try{
+        let come = await Comentario.findById(id);
+        com.id_libro = come.id_libro;
+        com.id_usuario = come.id_usuario;
+        let respuesta = await com.save();
+        come.id_respuesta.push(respuesta)
+        await Comentario.findByIdAndUpdate(id,come);
+        return {
+            status: 1,
+            msg: "Respuesta añadida correctamente"
+        }; 
+    }catch{
+        return{
+            status: 0,
+            msg: "No se pudo añadir la respuesta"
+        };
+    }
+}
+
 exports.findComentarioByCom = async (comentario)  => {
     try{        
         let ti = new RegExp ('.*'+comentario+'.*','i')        
        // console.log(t);
-        let data = await Libro.find({"comentario" : ti }).exec();        
+        let data = await Libro.find({"comentario" : ti }).populate({
+            path: "id_respuesta"
+        }).exec();        
         return data
     }catch {
         return{
@@ -36,7 +68,9 @@ exports.findComentarioByCom = async (comentario)  => {
 
 exports.findComentarioByUser = async (usuario) => { // para que los admins miren la popularidad de un libro en especifico
     try{         
-        let data = await Comentario.find({"id_usuario" : usuario}).exec();
+        let data = await Comentario.find({"id_usuario" : usuario}).populate({
+            path: "id_respuesta"
+        }).exec();
         return data;
     }catch{
         return{
@@ -46,7 +80,7 @@ exports.findComentarioByUser = async (usuario) => { // para que los admins miren
     }
 } 
 
-exports.findComentarioByLib = async (libro) => {   
+/*exports.findComentarioByLib = async (libro) => {   
     try{         
         let data = await Comentario.find({"id_libro" : libro}).exec();
         return data;
@@ -56,7 +90,7 @@ exports.findComentarioByLib = async (libro) => {
             msg: "Ningun usuario tiene como comentarios en este libro"
         };
     }
-} 
+} */
 
 exports.findComentarioAnt = async (libro) => {
     try{
@@ -72,7 +106,9 @@ exports.findComentarioAnt = async (libro) => {
                     '$sort' : {'createdAt': -1}
                 }
                 
-            ]).exec();
+            ]).populate({
+                    path: "id_respuesta"
+            }).exec();
         return data;
     }catch {
         return{
@@ -82,6 +118,7 @@ exports.findComentarioAnt = async (libro) => {
         };
     }
 }
+
 exports.findComentarioNew = async (libro) => {
     try{
         let data;
@@ -95,8 +132,9 @@ exports.findComentarioNew = async (libro) => {
                     '$sort' : {'createdAt': 1}
                 },
                 
-            ]).exec();
-        
+            ]).populate({
+                path: "id_respuesta"
+            }).exec();
         return data;
     }catch {
         return{
@@ -120,11 +158,12 @@ exports.removeComentario = async (id) => {
     }
 }
 
-exports.updateComentario = async (id,comentario,id_usuario,id_libro) => {
+exports.updateComentario = async (id,comentario,id_usuario,id_libro,id_respuesta) => {
     const lib = new Comentario({
         comentario,
         id_usuario,
-        id_libro
+        id_libro,
+        id_respuesta
     });
     try{
        await Comentario.findByIdAndUpdate(id,lib);

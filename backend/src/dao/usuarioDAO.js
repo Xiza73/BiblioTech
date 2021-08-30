@@ -19,6 +19,7 @@ exports.addUsuario =  async (usuario,contrasenia,correo,rol_id,foto_data,foto_ty
 exports.findUsuarioByEmail = async (correo) =>{
     return Usuario.findOne({correo}).exec()
 }
+
 exports.findUsuarioById = async (id) =>{
   try{
     let data = await Usuario.findById(id).exec();
@@ -29,10 +30,12 @@ exports.findUsuarioById = async (id) =>{
         msg: "No se encuentra el usuario disponible"
     };
 }
+
 }
 exports.deleteUsuarioByEmail = (correo) =>{
   return Usuario.deleteOne({correo}).exec()
 }
+
 exports.findUsuarioWithRole = async (correo) => {
     return Usuario.aggregate( 
         [
@@ -76,3 +79,54 @@ exports.findUsuarioWithRole = async (correo) => {
       ).exec()
 }
 
+exports.findUsuario = async () => {
+  try{         
+    let data = await Usuario.find().exec();
+    return data;
+  }catch{
+    return{
+        status: 0,
+        msg: "No hay Usuario"
+    };
+  }
+} 
+
+exports.updateUsuario = async (id,usuario,contrasenia,correo,rol_id,foto_data,foto_type) => {
+  const user = new Usuario({
+    usuario,
+    contrasenia,
+    correo,        
+    rol: rol_id,
+    avatar: {
+        data: foto_data,
+        type: foto_type
+    }
+  }); 
+  try{
+     await Usuario.findByIdAndUpdate(id,user);
+      return {
+          status: 1,
+          msg: "Usuario actualizado correctamente"
+      }; 
+  }catch{
+      return{
+          status: 0,
+          msg: "No se pudo actualizar el usuario"
+      };
+  }
+}
+
+exports.removeUsuario = async (id) => {
+  try{
+      await Usuario.findByIdAndDelete(id).exec(); 
+      return {
+          status: 1,
+          msg: "Usuario eliminado correctamente"
+      };
+  }catch{
+      return{
+          status: 0,
+          msg: "No se pudo eliminar el usuario"
+      };
+  }
+}
