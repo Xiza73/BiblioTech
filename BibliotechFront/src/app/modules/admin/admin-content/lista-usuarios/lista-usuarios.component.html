@@ -1,0 +1,23 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> #</th>
+            <th>id</th>
+            <th>correo</th>
+            <th>Nombre</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of listaUsers; let i = index" >
+            <td>{{i+1}}</td>
+            <td>{{user._id}}</td>
+            <td>{{user.correo}}</td>
+            <td>{{user.usuario}}</td>
+            <td><a >Editar </a></td>
+            <td><a >Eliminar </a></td>
+        </tr>
+    </tbody>
+</table>
+

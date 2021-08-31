@@ -1,0 +1,23 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> #</th>
+            <th>Libro</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let libro of listaLibros; let i = index" >
+            <td>{{i+1}}</td>
+            <td>{{libro.titulo}}</td>
+            <td>{{libro.autor}}</td>
+          
+            <td>{{libro.categoria}}</td>
+            
+            <td><a >Editar </a></td>
+            <td><a >Eliminar </a></td>
+        </tr>
+    </tbody>
+</table>

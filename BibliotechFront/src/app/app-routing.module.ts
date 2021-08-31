@@ -6,6 +6,7 @@ import { RegisterComponent } from './modules/auth/auth-content/register/register
 import {  PruebComponent } from './shared/card-libro/prueba.component';
 import { ValidarTokenGuard } from './guard/validar-token.guard';
 import { ValidarUsuarioGuard } from './guard/validar-usuario.guard';
+import { ValidarRolGuard } from './guard/validar-rol.guard';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
     loadChildren:() =>import('./modules/user/user.module').then(m=>m.UserModule),
     canActivate: [ValidarTokenGuard],
     canLoad:[ValidarTokenGuard]
+  },
+  {
+    path:'admincontent',
+    loadChildren:() =>import('./modules/admin/admin.module').then(m=>m.AdminModule),
+    canActivate:[ValidarRolGuard]
   },
   {
     path:'card',

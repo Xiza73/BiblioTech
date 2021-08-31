@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/services/auth-service.service';
 
 @Component({
   selector: 'app-admin-content',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
+  get usuario(){
+    return this.authService.usuario
+  }
 
   ngOnInit(): void {
   }
-
+  
+  
 }
