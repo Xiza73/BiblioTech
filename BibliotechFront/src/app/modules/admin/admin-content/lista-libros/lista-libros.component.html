@@ -3,7 +3,8 @@
         <tr>
             <th> #</th>
             <th>Libro</th>
-            <th>Nombre</th>
+            <th>Autor</th>
+            <th>id</th>
             <th>Categoria</th>
             <th></th>
         </tr>
@@ -13,11 +14,14 @@
             <td>{{i+1}}</td>
             <td>{{libro.titulo}}</td>
             <td>{{libro.autor}}</td>
+            <td>{{libro._id}}</td>
           
             <td>{{libro.categoria}}</td>
             
-            <td><a >Editar </a></td>
-            <td><a >Eliminar </a></td>
+          
+            <td><button type="button" class="btn btn-warning">Editar</button></td>
+            <td> 
+                <button   (click)="eliminarLibro(libro._id)" type="button" class="btn btn-danger">Eliminar</button>  </td>
         </tr>
     </tbody>
 </table>

@@ -1,0 +1,29 @@
+<form [formGroup]="miFormulario" (ngSubmit)="agregarUsuario()">
+    <div class="mb-3">
+      <label for="archivo" class="form-label">nombre</label>
+      <input type="text" formControlName="nombre" class="form-control" id="archivo" aria-describedby="emailHelp">
+      
+    </div>
+    <div class="mb-3">
+      <label for="titulo" class="form-label">apellido</label>
+      <input type="text" formControlName="apellido" class="form-control" id="titulo">
+    </div>
+    <div class="mb-3">
+        <label for="autor" class="form-label">usuario</label>
+        <input type="text" formControlName="usuario" class="form-control" id="autor">
+      </div>
+      <div class="mb-3">
+        <label for="categoria" class="form-label">correo</label>
+        <input type="text" formControlName="correo" class="form-control" id="categoria">
+      </div>
+      <div class="mb-3">
+        <label for="pais" class="form-label">rol</label>
+        <input type="text" formControlName="rol" class="form-control" id="pais">
+      </div>
+      <div class="mb-3">
+        <label for="fechapublicacion" class="form-label">contraseña</label>
+        <input type="text" formControlName="contrasenia" class="form-control" id="fechapublicacion">
+      </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

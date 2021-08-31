@@ -21,6 +21,19 @@ export class DashoboardService {
   obtenerUsuarios():Observable<Usuario[]>{
     return this.http.get<Usuario[]>(`${this.API}/api/usuario`)
   }
+  agregarLibros(data:any):Observable<any>{
+    return this.http.post<any>(`${this.API}/api/libro`, data)
+  }
+  eliminarLibro(data:any):Observable<any>{
+    return this.http.delete<any>( `${this.API}/api/libro/${data}`)
+  }
+
+  eliminarUsuario(data:any):Observable<any>{
+  return this.http.delete<any>(`${this.API}/api/usuario/${data}`)
+  }
+  registrarUsuario(data: any): Observable<any>{
+    return this.http.post(`${this.API}/auth/register`, data)
+  }
 }
 
 

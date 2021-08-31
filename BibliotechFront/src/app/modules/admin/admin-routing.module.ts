@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminContentComponent } from './admin-content/admin-content.component';
 import { ListaLibrosComponent } from './admin-content/lista-libros/lista-libros.component';
 import { ListaUsuariosComponent } from './admin-content/lista-usuarios/lista-usuarios.component';
+import { AgregarUsuarioComponent } from './admin-content/agregar-usuario/agregar-usuario.component';
+import { AgregarLibroComponent } from './admin-content/agregar-libro/agregar-libro.component';
 
 
 const routes:Routes = [
@@ -17,6 +19,14 @@ const routes:Routes = [
         {
             path:'listausuarios',
             component:ListaUsuariosComponent
+        },
+        {
+            path:'agregarusuario',
+            component:AgregarUsuarioComponent
+        },
+        {
+            path:'agregarlibro',
+            component:AgregarLibroComponent
         },
         {
             path:'**',

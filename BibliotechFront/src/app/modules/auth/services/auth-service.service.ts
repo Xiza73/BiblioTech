@@ -71,7 +71,7 @@ export class AuthService {
    
     
     
-    if(localStorage.getItem('usuario')&&  this._usuario.rol.length>7){
+    if(localStorage.getItem('usuario')&&  this._usuario.rol.length!>7){
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(true)
       
@@ -114,9 +114,11 @@ export class AuthService {
 
   }
   validarRolUsuario():Observable<boolean>{
-    if(this._usuario.rol.length<7){
+    if(this._usuario.rol.length===5  ){
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(true)
     }else{
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(false)
     }
   }

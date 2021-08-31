@@ -36,7 +36,7 @@ export class UserService {
   }
 
   comentar(data: any): Observable<any>{
-    data.id_usuario = this.authService.usuario.id_usuario
+    data.id_usuario = this.authService.usuario._id
     console.log(data)
     return this.http.post(`${this.API}/api/comentario`, data, { observe: "body"});
   }

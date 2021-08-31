@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashoboardService } from '../services/dashoboard.service';
 import { Libros } from '../../../auth/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-libros',
@@ -9,7 +10,8 @@ import { Libros } from '../../../auth/interfaces';
 })
 export class ListaLibrosComponent implements OnInit {
 
-  constructor(private dashboardService:DashoboardService ) { }
+  constructor(private dashboardService:DashoboardService,
+              private route:Router ) { }
   
   listaLibros:Libros[]=[]
 
@@ -18,6 +20,18 @@ export class ListaLibrosComponent implements OnInit {
     this.dashboardService.obtenerLibros()
       .subscribe( resp => {this.listaLibros = resp ,
       console.log(resp)});
+  }
+  eliminarLibro(id:any){
+    this.dashboardService.eliminarLibro(id)
+    .subscribe(resp => {
+      
+      this.dashboardService.obtenerLibros()
+      .subscribe(resp => {this.listaLibros = resp ,
+        console.log(resp)})
+      this.route.navigateByUrl('/usercontent')
+    })
+   
+
   }
   
   
