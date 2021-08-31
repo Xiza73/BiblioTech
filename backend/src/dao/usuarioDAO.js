@@ -1,6 +1,6 @@
 const { errorHandler } = require('../helpers/dbErrorHandler');
 const Usuario = require('../models/Usuario');
-const bcrypt = require('bcrypt');
+
 exports.addUsuario =  async (usuario,contrasenia,correo,rol_id,foto_data,foto_type) => {
     const user = new Usuario({
         usuario,
@@ -120,6 +120,7 @@ exports.updateUsuario = async (id,usuario,contrasenia,correo,rol_id,foto_data,fo
 
 exports.removeUsuario = async (id) => {
   try{
+      
       await Usuario.findByIdAndDelete(id).exec(); 
       return {
           status: 1,

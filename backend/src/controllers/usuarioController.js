@@ -2,7 +2,10 @@ const { errorHandler } = require('../helpers/dbErrorHandler');
 const formidable = require('formidable');
 const _ = require('lodash');
 const fs = require('fs');
-const { addUsuario, findUsuarioById, findUsuario, updateUsuario } = require('../dao/usuarioDAO');
+const { addUsuario, findUsuarioById, findUsuario, updateUsuario, removeUsuario } = require('../dao/usuarioDAO');
+const { deletePersonaByIdUsuario } = require('../dao/personaDAO');
+const bcrypt = require('bcrypt');
+const saltRounds = 13;
 //Model
 const Usuario = require('../models/Usuario');
 
@@ -44,7 +47,7 @@ exports.readById = async (req, res) => {
     return res.json(data);
 }
 
-exports.update = async (req, res) => { //falta modificar DAO
+exports.update = async (req, res) => { 
     let data = req.body;
     let confirm = await updateUsuario(req.params.id, data.usuario, data.correo, await bcrypt.hash(data.contrasenia, saltRounds), rol.id, foto_data, foto_tipo);
     if(confirm.error){
@@ -54,8 +57,8 @@ exports.update = async (req, res) => { //falta modificar DAO
     
 }
 
-exports.remove = async () => { //falta modificar DAO
-
+exports.remove = async (req,res) => {   
+    deletePersonaByIdUsuario(req.params.id)
     let confirm = await removeUsuario(req.params.id);
     if(confirm.error){
         return res.status(400).json(confirm);
