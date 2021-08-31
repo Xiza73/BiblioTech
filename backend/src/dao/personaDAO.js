@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Persona = require('../models/Persona')
 
 exports.addPersona =  async (id_usuario,nombre,apellido) => {

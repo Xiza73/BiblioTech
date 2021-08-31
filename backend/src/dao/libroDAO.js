@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Libro = require('../models/Libro');
 
 exports.addLibro = async (arc_libro,titulo,autor,categoria,pais,fch_pub,foto_data,foto_type) => {

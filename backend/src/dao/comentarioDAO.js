@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Comentario = require('../models/Comentario');
 var mongoose = require('mongoose')
 exports.addComentario = async (comentario,id_usuario,id_libro) => {
@@ -164,14 +165,6 @@ exports.findComentarioNew = async (libro) => {
                       'es_comentario': 1
                     }
                 },
-                {
-                    '$lookup': {
-                      'from': 'comentarios', 
-                      'localField': 'id_respuesta', 
-                      'foreignField': '_id', 
-                      'as': 'respuesta'
-                    }                    
-                },   
                /* {
                     '$lookup': {
                       'from': 'personas', 
@@ -190,16 +183,40 @@ exports.findComentarioNew = async (libro) => {
                         'nombre': '$nombre.nombre', 
                         'apellido': '$nombre.apellido'
                     }
-                },    */
+                },   
+               {
+                    '$lookup': {
+                      'from': 'comentarios', 
+                      'localField': 'id_respuesta', 
+                      'foreignField': '_id', 
+                      'as': 'respuesta'
+                    }                                     
+                }, */  
+                
                 {
                     '$graphLookup': {
-                       'from': 'personas',
-                       'startWith': '$id_usuario',
-                       'connectFromField': 'id_usuario',
-                       'connectToField': 'id_usuario',
-                       'as': 'nombre'
+                       'from': 'comentarios',
+                       'startWith': '$id_respuesta',
+                       'connectFromField': 'id_respuesta',
+                       'connectToField': '_id',
+                       'as': 'res'
+                    },
+                                
+                 },// crea un array  con las respuestas , problema intentar poner nombre por respuesta dentro del array
+                 {'$addFields': {
+                    'name': 'hello'
+                    
+                }  },
+                 {
+                 
+                    '$lookup': {
+                        'from': 'personas', 
+                        'localField': 'res.id_usuario', 
+                        'foreignField': 'id_usuario', 
+                        'as': 'nombre'
                     }
-                 }, 
+                 },
+                  
                 {
                     '$sort' : {'createdAt': 1}
                 }

@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Favorito = require('../models/Favorito');
 
 exports.addFavorito = async (id_usuario,id_libro) => {
