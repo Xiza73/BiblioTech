@@ -28,11 +28,8 @@ exports.register = async (req, res) => {
         foto_tipo = null
       }
     }
-    console.log(rol.id)
-    console.log(data)
-    console.log(data.correo)
-    let usuario = await addUsuario(data.usuario, await bcrypt.hash(data.contrasenia, saltRounds), data.correo, rol.id, foto_data, foto_tipo).catch(e => {
-      
+    let usuario = await addUsuario(data.usuario, await bcrypt.hash(data.contrasenia, saltRounds), data.correo, rol.id, foto_data, foto_tipo).catch(e => {     
+      console.log(e) 
       respuesta.err.push("Error al insertar usuario")
       res.status(422)
     })
