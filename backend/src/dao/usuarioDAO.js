@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 exports.addUsuario =  async (usuario,contrasenia,correo,rol_id,foto_data,foto_type) => {
@@ -11,7 +12,8 @@ exports.addUsuario =  async (usuario,contrasenia,correo,rol_id,foto_data,foto_ty
             type: foto_type
         }
       });   
-   
+    console.log("hola")
+    console.log(user)
      return user.save()
       
 }

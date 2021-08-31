@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Rol = require('../models/Rol');
 
 exports.getRol = async (rol) =>{

@@ -1,3 +1,4 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const Favorito = require('../models/Favorito');
 
 exports.addFavorito = async (id_usuario,id_libro) => {
@@ -20,8 +21,7 @@ exports.addFavorito = async (id_usuario,id_libro) => {
 }
 
 exports.findFavoritoByUser = async (usuario) => {
-    try{  
-        console.log(usuario)       
+    try{             
         let data = await Favorito.find({"id_usuario" : usuario}).exec();
         return data;
     }catch{

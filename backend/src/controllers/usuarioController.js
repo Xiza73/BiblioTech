@@ -55,6 +55,7 @@ exports.update = async (req, res) => { //falta modificar DAO
 }
 
 exports.remove = async () => { //falta modificar DAO
+
     let confirm = await removeUsuario(req.params.id);
     if(confirm.error){
         return res.status(400).json(confirm);

@@ -1,6 +1,3 @@
-const { errorHandler}  = require('../helpers/dbErrorHandler');
-//Model
-const Favorito = require('../models/Favorito');
 const { addFavorito,  findFavoritoByUser, findFavoritoByLib, findFavoritoRank, removeFavorito, updateFavorito } = require('../dao/favoritoDAO')
 const {findLibroById } = require('../dao/libroDAO')
 
@@ -106,4 +103,3 @@ exports.remove = async (req, res) => {
     }
     return res.json(confirm);
 }
-

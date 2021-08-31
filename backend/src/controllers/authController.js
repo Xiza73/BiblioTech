@@ -1,4 +1,5 @@
 const { getRol } = require('../dao/rolDAO');
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const { addUsuario, findUsuarioWithRole } = require('../dao/usuarioDAO');
 const { addPersona } = require('../dao/personaDAO');
 const Usuario = require('../models/Usuario');
@@ -27,9 +28,12 @@ exports.register = async (req, res) => {
         foto_tipo = null
       }
     }
-
+    console.log(rol.id)
+    console.log(data)
+    console.log(data.correo)
     let usuario = await addUsuario(data.usuario, await bcrypt.hash(data.contrasenia, saltRounds), data.correo, rol.id, foto_data, foto_tipo).catch(e => {
-      respuesta.err.push("error al añadir user")
+      
+      respuesta.err.push("Error al insertar usuario")
       res.status(422)
     })
     
@@ -42,6 +46,7 @@ exports.register = async (req, res) => {
         respuesta.msg = "añadido exitosamente"
         res.status(201)
       } )
+      const token = jwt.sign({ _id: usuario._id }, process.env.JWT_SECRET)
       res.cookie('t', token, { expire: new Date() + 9999 })
       respuesta.token = token
       respuesta.user = {
