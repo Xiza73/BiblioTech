@@ -36,7 +36,7 @@ export class AuthService {
           
           this._usuario={
 
-
+            
             name:resp.user?.nombre,
             correo:resp.user?.correo,
             _id:resp.user?._id,

@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     console.log(user, password)
     this.authService.iniciarSesion({correo:user,contrasenia:password})
       .subscribe(data =>{
+        console.log(data)
         if(data===true){
           this.router.navigateByUrl('/admincontent')
         }else{

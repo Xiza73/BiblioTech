@@ -42,13 +42,22 @@ exports.register = async (req, res) => {
         respuesta.msg = "añadido exitosamente"
         res.status(201)
       } )
+      res.cookie('t', token, { expire: new Date() + 9999 })
+      respuesta.token = token
+      respuesta.user = {
+        _id : usuario._id,
+        correo : usuario.correo,
+        nombre : usuario.nombre + ' ' + usuario.apellido,
+        rol : usuario.rol,
+      }
+      respuesta.ok = true 
     }
 
   } else {
     respuesta.err.push("rol no existe")
     res.status(422)
   }
-  respuesta.ok = true 
+ 
   res.json(respuesta);
 
 }

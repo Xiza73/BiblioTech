@@ -1,10 +1,14 @@
 const Comentario = require('../models/Comentario');
 var mongoose = require('mongoose')
 exports.addComentario = async (comentario,id_usuario,id_libro) => {
+    let id_respuesta  = []
+    let es_comentario = 1;
     const com = new Comentario({
             comentario,
             id_usuario,
-            id_libro        
+            id_libro,
+            es_comentario,
+            id_respuesta       
     });
     try{
         await com.save();
@@ -20,11 +24,45 @@ exports.addComentario = async (comentario,id_usuario,id_libro) => {
     }
 }
 
+
+exports.addRespuesta = async (comentario,id) => {
+    try{
+        let come = await Comentario.findById(id);
+        const id_respuesta  = [];
+        const es_comentario = 0;
+        const id_libro = come.id_libro;
+        const id_usuario = come.id_usuario;
+        console.log(id)
+        const com = new Comentario({
+            comentario,
+            id_usuario,
+            id_libro,
+            id_respuesta,
+            es_comentario
+        });
+        console.log(comentario)
+        let respuesta = await com.save();
+        come.id_respuesta.push(respuesta)
+        await Comentario.updateOne({_id: id},come);
+        return {
+            status: 1,
+            msg: "Respuesta añadida correctamente"
+        }; 
+    }catch{
+        return{
+            status: 0,
+            msg: "No se pudo añadir la respuesta"
+        };
+    }
+}
+
 exports.findComentarioByCom = async (comentario)  => {
     try{        
         let ti = new RegExp ('.*'+comentario+'.*','i')        
        // console.log(t);
-        let data = await Libro.find({"comentario" : ti }).exec();        
+        let data = await Libro.find({"comentario" : ti }).populate({
+            path: "id_respuesta"
+        }).populate({path: "id_usuario"}).exec();       
         return data
     }catch {
         return{
@@ -36,7 +74,9 @@ exports.findComentarioByCom = async (comentario)  => {
 
 exports.findComentarioByUser = async (usuario) => { // para que los admins miren la popularidad de un libro en especifico
     try{         
-        let data = await Comentario.find({"id_usuario" : usuario}).exec();
+        let data = await Comentario.find({"id_usuario" : usuario}).populate({
+            path: "id_respuesta"
+        }).populate({path: "id_usuario"}).exec();
         return data;
     }catch{
         return{
@@ -46,7 +86,7 @@ exports.findComentarioByUser = async (usuario) => { // para que los admins miren
     }
 } 
 
-exports.findComentarioByLib = async (libro) => {   
+/*exports.findComentarioByLib = async (libro) => {   
     try{         
         let data = await Comentario.find({"id_libro" : libro}).exec();
         return data;
@@ -56,23 +96,52 @@ exports.findComentarioByLib = async (libro) => {
             msg: "Ningun usuario tiene como comentarios en este libro"
         };
     }
-} 
+} */
 
 exports.findComentarioAnt = async (libro) => {
     try{
         let data;            
-            data = await Comentario.aggregate([
+            data = await Comentario
+            .aggregate([
                 {
                     '$match': {
-                      'id_libro':  mongoose.Types.ObjectId(libro)
+                      'id_libro':  mongoose.Types.ObjectId(libro),
+                      'es_comentario': 1
                     }
                 },
-                               
+                {
+                    '$lookup': {
+                      'from': 'comentarios', 
+                      'localField': 'id_respuesta', 
+                      'foreignField': '_id', 
+                      'as': 'respuesta'
+                    }
+                },   
+                {
+                    '$lookup': {
+                      'from': 'personas', 
+                      'localField': 'id_usuario', 
+                      'foreignField': 'id_usuario', 
+                      'as': 'nombre'
+                    }
+                },
+                {
+                    '$unwind': {
+                        'path': '$nombre'
+                    }
+                }, 
+                {
+                    '$addFields': {
+                        'nombre': '$nombre.nombre', 
+                        'apellido': '$nombre.apellido'
+                    }
+                },     
                 {
                     '$sort' : {'createdAt': -1}
                 }
                 
-            ]).exec();
+            ])
+            .exec();
         return data;
     }catch {
         return{
@@ -82,21 +151,52 @@ exports.findComentarioAnt = async (libro) => {
         };
     }
 }
+
 exports.findComentarioNew = async (libro) => {
     try{
         let data;
         
-            data = await Comentario.aggregate([
+            data = await Comentario
+            .aggregate([
                 {
-                    '$match' : {"id_libro" : mongoose.Types.ObjectId(libro)} //para poner una condicion como un where en sql
+                    '$match': {
+                      'id_libro':  mongoose.Types.ObjectId(libro),
+                      'es_comentario': 1
+                    }
                 },
-                               
+                {
+                    '$lookup': {
+                      'from': 'comentarios', 
+                      'localField': 'id_respuesta', 
+                      'foreignField': '_id', 
+                      'as': 'respuesta'
+                    }
+                },   
+                {
+                    '$lookup': {
+                      'from': 'personas', 
+                      'localField': 'id_usuario', 
+                      'foreignField': 'id_usuario', 
+                      'as': 'nombre'
+                    }
+                },
+                {
+                    '$unwind': {
+                        'path': '$nombre'
+                    }
+                }, 
+                {
+                    '$addFields': {
+                        'nombre': '$nombre.nombre', 
+                        'apellido': '$nombre.apellido'
+                    }
+                },     
                 {
                     '$sort' : {'createdAt': 1}
-                },
+                }
                 
-            ]).exec();
-        
+            ])
+            .exec();
         return data;
     }catch {
         return{
@@ -120,11 +220,12 @@ exports.removeComentario = async (id) => {
     }
 }
 
-exports.updateComentario = async (id,comentario,id_usuario,id_libro) => {
+exports.updateComentario = async (id,comentario,id_usuario,id_libro,id_respuesta) => {
     const lib = new Comentario({
         comentario,
         id_usuario,
-        id_libro
+        id_libro,
+        id_respuesta
     });
     try{
        await Comentario.findByIdAndUpdate(id,lib);

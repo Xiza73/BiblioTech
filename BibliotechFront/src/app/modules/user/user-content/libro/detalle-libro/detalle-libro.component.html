@@ -1,0 +1,37 @@
+<div class="container">
+  <article class="item-pane">
+    <div class="item-preview">
+      <div
+        [ngStyle]="{background : data.imagen.data ? 'url(\'' + data.imagen.data + '\')' : 'url(\'' + meinKaft +'\')'}"
+        class="book"
+      ></div>
+    </div>
+    <div class="item-details">
+      <h1>{{ data.titulo }}</h1>
+      <span class="subtitle">{{ data.autor }}</span>
+      <div class="pane__section">
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis nam
+          consectetur assumenda sapiente sint nobis quasi dolorem doloremque
+          quae nulla?
+        </p>
+      </div>
+      <div class="pane__section">
+        <dl>
+          <dt>Autor</dt>
+          <dd>&nbsp;{{ data.autor }}</dd>
+          <dt>Categoría</dt>
+          <dd>&nbsp;{{ data.categoria }}</dd>
+          <dt>Publicación</dt>
+          <dd>&nbsp;{{ data.fch_pub | date }}</dd>
+          <dt>País</dt>
+          <dd>&nbsp;{{ data.pais }}</dd>
+        </dl>
+      </div>
+      <div class="pane__section clearfix">
+        <span class="item-price">Bibliotech</span>
+        <p class="button buy-button" (click)="buscarLibro()">Buscar</p>
+      </div>
+    </div>
+  </article>
+</div>

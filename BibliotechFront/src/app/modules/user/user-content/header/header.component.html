@@ -25,8 +25,13 @@
     <ul *ngIf="isLogged()">
       <li *ngIf="!usuario"><a href="#">Ingresar</a></li>
       <li *ngIf="!usuario"><a href="#">Registro</a></li>
-      <li *ngIf="usuario"><a href="#">{{usuario.name}}</a></li>
-      <li *ngIf="usuario" ><a (click)="logout()" class="pointer" >LOGOUT</a></li>
+      <li *ngIf="usuario">
+        <a href="./usercontent/perfil">
+          <i class="fas fa-user"></i>
+          {{ usuario.name }}
+        </a>
+      </li>
+      <li *ngIf="usuario"><a (click)="logout()" class="pointer">LOGOUT</a></li>
     </ul>
   </div>
 </div>

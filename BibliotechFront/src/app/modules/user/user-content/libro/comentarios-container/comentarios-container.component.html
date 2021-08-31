@@ -1,0 +1,11 @@
+<!-- Contenedor Principal -->
+<div class="comments-container">
+  <h1>Comentarios</h1>
+
+  <ul id="comments-list" class="comments-list">
+    <li *ngFor="let e of comentarios">
+      <app-comentario [data]="e"></app-comentario>
+    </li>
+  </ul>
+</div>
+

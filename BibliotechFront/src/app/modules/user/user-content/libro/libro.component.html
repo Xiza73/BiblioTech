@@ -1,115 +1,14 @@
-
-<div class="container">
-    <article class="item-pane">
-      <div class="item-preview">
-        <div class="book"></div>
-      </div>
-      <div class="item-details">
-        <h1>The Picture of Dorian Gray</h1><span class="subtitle">Oscar Wilde</span>
-        <div class="pane__section">
-          <p>
-             The Picture of Dorian Gray is a philosophical novel by the writer Oscar Wilde, first published complete in the July 1890 issue of Lippincott's Monthly Magazine. The magazine's editor feared the story was indecent, and without Wilde's knowledge, deleted roughly five hundred words before publication. Despite that censorship, The Picture of Dorian Gray offended the moral sensibilities of British book reviewers, some of whom said that Oscar Wilde merited prosecution for violating the laws guarding the public morality. In response, Wilde aggressively defended his novel and art in correspondence with the British press, although he personally made excisions of some of the most controversial material when revising and lengthening the story for book publication the following year.
-             - <a href="https://en.wikipedia.org/wiki/The_Picture_of_Dorian_Gray">Wikipedia</a>
-          </p>
-        </div>
-        <div class="pane__section">
-          <dl>
-            <dt>Cover by</dt>
-            <dd><a href="http://recoveringtheclassics.com/book/picture-of-dorian-gray/">Roberto Lanznaster</a></dd>
-            <dt>Format</dt>
-            <dd>Paperback</dd>
-            <dt>Publisher</dt>
-            <dd>Penguin</dd>
-            <dt>Published</dt>
-            <dd>2008</dd>
-            <dt>Edition</dt>
-            <dd>N/A</dd>
-            <dt>ISBN</dt>
-            <dd>1234567890</dd>
-          </dl>
-        </div>
-        <div class="pane__section clearfix"><span class="item-price">10.99<span class="item-price__units">NZD</span></span><a class="button buy-button" href="#">Purchase</a></div>
-      </div>
-    </article>
-  </div>
-
-  <!-- Contenedor Principal -->
-	<div class="comments-container">
-		<h1>Comentarios <a href="">creaticode.com</a></h1>
-
-		<ul id="comments-list" class="comments-list">
-			<li>
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name by-author"><a href="">Agustin Ortiz</a></h6>
-							<span>hace 20 minutos</span>
-							<i class="fa fa-reply"></i>
-							<i class="fa fa-heart"></i>
-						</div>
-						<div class="comment-content">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-						</div>
-					</div>
-				</div>
-				<!-- Respuestas de los comentarios -->
-				<ul class="comments-list reply-list">
-					<li>
-						<!-- Avatar -->
-						<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
-						<!-- Contenedor del Comentario -->
-						<div class="comment-box">
-							<div class="comment-head">
-								<h6 class="comment-name"><a href="">Lorena Rojero</a></h6>
-								<span>hace 10 minutos</span>
-								<i class="fa fa-reply"></i>
-								<i class="fa fa-heart"></i>
-							</div>
-							<div class="comment-content">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-							</div>
-						</div>
-					</li>
-
-					<li>
-						<!-- Avatar -->
-						<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-						<!-- Contenedor del Comentario -->
-						<div class="comment-box">
-							<div class="comment-head">
-								<h6 class="comment-name by-author"><a href="">Agustin Ortiz</a></h6>
-								<span>hace 10 minutos</span>
-								<i class="fa fa-reply"></i>
-								<i class="fa fa-heart"></i>
-							</div>
-							<div class="comment-content">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-							</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-
-			<li>
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name"><a href="">Lorena Rojero</a></h6>
-							<span>hace 10 minutos</span>
-							<i class="fa fa-reply"></i>
-							<i class="fa fa-heart"></i>
-						</div>
-						<div class="comment-content">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
+<app-detalle-libro [libro]="getLibro()"></app-detalle-libro>
+<app-comentarios-container
+  [data]="getComentarios()"
+></app-comentarios-container>
+<div class="input-group px-5 mb-5">
+  <textarea
+    [(ngModel)]="comentario"
+    class="form-control"
+    aria-label="Comentario"
+  ></textarea>
+  <span class="input-group-text comentar-button" (click)="comentar()"
+    >Comentar</span
+  >
+</div>

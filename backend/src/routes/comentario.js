@@ -6,12 +6,15 @@ const { create,
         readAnt,
         readNew, 
         readByCom,  
+        createRespuesta,
         update, 
         remove } = require('../controllers/comentarioController');
 
 router.post('/', create);
 
 router.get('/com', readByCom);
+
+router.post('/res', createRespuesta);
 
 router.get('/desc', readNew);
 

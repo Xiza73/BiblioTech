@@ -1,7 +1,7 @@
 const { errorHandler}  = require('../helpers/dbErrorHandler');
 //Model
 const Comentario = require('../models/Comentario');
-const { addComentario, findComentarioNew, findComentarioAnt,findComentarioByCom, removeComentario,updateComentario } = require('../dao/comentarioDAO')
+const { addComentario, addRespuesta, findComentarioNew, findComentarioAnt,findComentarioByCom, removeComentario,updateComentario } = require('../dao/comentarioDAO')
 
 exports.create = async (req, res) => {
     let data = req.body;
@@ -10,6 +10,14 @@ exports.create = async (req, res) => {
         return res.status(400).json(confirm);
     }
     return res.json(confirm);  
+}
+
+exports.createRespuesta = async (req, res) => {
+    let confirm = await addRespuesta(req.body.comentario, req.body.id_comentario);
+    if(confirm.error){
+        return res.status(400).json(confirm);
+    }
+    return res.json(confirm);
 }
 
 exports.readNew = async (req, res) => {
