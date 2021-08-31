@@ -19,7 +19,7 @@ export class DetalleLibroComponent implements OnInit, OnChanges {
     titulo: ""
   };
 
-  meinKaft: string = 'https://images-na.ssl-images-amazon.com/images/I/5144WhFYyKL._SX333_BO1,204,203,200_.jpg';
+  meinKaft: string = '';
 
   constructor() {
   }
