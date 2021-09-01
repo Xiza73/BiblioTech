@@ -2,14 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators'
-import { AuthResponse } from '../interfaces';
+import { AuthResponse, Libros, NuevoUser } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private API: string;
-  private _usuario:any;
+  private _usuario:NuevoUser={
+    name:"",
+    correo:"",
+    _id:"",
+    rol:""
+
+  };
 
   get usuario(){
     return {...this._usuario}
@@ -30,11 +36,12 @@ export class AuthService {
           
           this._usuario={
 
-            id_usuario:resp.user?._id,
+            
             name:resp.user?.nombre,
             correo:resp.user?.correo,
+            _id:resp.user?._id,
             rol:resp.user?.rol
-            
+       
 
             
           }
@@ -60,19 +67,38 @@ export class AuthService {
 
 
   validarUsuario():Observable<boolean>{
+     
+   
     
-    if(localStorage.getItem('token') ){
+    
+    if(localStorage.getItem('usuario')&&  this._usuario.rol.length!>7){
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(true)
-    }else{
-      console.log("falsopapu")
+      
+    }else {
+     
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(false)
       
     }
 
   }
+  /* validarUsuario():Observable<boolean>{
+    
+    if(localStorage.getItem('token') ){
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      return of(true)
+    }else if(){
+      console.log("falsopapu")
+      return of(false)
+      
+    }
+  
+
+  } */
   logout(){
-    localStorage.removeItem('token')
+    localStorage.removeItem('token'),
+    localStorage.removeItem('usuario')
   
   }
   validarUsuariologin():Observable<boolean>{
@@ -86,5 +112,21 @@ export class AuthService {
       
     }
 
+  }
+  validarRolUsuario():Observable<boolean>{
+    if(this._usuario.rol.length===5  ){
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      return of(true)
+    }else{
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      return of(false)
+    }
+  }
+
+
+  //dashboard
+
+  
 }
-}
+
+

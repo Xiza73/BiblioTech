@@ -1,0 +1,25 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th> #</th>
+            <th>id</th>
+            <th>correo</th>
+            <th>Nombre</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of listaUsers; let i = index" >
+            <td>{{i+1}}</td>
+            <td>{{user._id}}</td>
+            <td>{{user.correo}}</td>
+            <td>{{user.usuario}}</td>
+            <td><button type="button" class="btn btn-warning">Editar</button></td>
+            <td> 
+             <button   (click)="eliminarUsuario(user._id)" type="button" class="btn btn-danger">Eliminar</button> 
+             </td>
+        </tr>
+    </tbody>
+</table>
+

@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   email: String = "";
   pass: String = "";
 
+  //formulario reactivo
   miFormulario: FormGroup = this.fb.group({
     user: ['',[Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(3)]]
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  //funcion para llamar a servicio de login
   login(){
     
 
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
       .subscribe(data =>{
         console.log(data)
         if(data===true){
-          this.router.navigateByUrl('/usercontent/main-view')
+          this.router.navigateByUrl('/admincontent')
         }else{
           Swal.fire('Error',data, 'error' );
         }

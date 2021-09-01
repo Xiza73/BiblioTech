@@ -7,6 +7,9 @@ import{tap} from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
+
+
+//Funciones de seguridad, para impedir el ingreso a usuarios no logeados 
 export class ValidarTokenGuard implements CanActivate, CanLoad {
 
   constructor(private authService:AuthService,
@@ -17,7 +20,7 @@ export class ValidarTokenGuard implements CanActivate, CanLoad {
     .pipe(
       tap(valid=>{
         if(!valid){
-          this.route.navigateByUrl('/auth/login')
+          this.route.navigateByUrl('/admincontent')
         }
       })
     );
@@ -28,7 +31,7 @@ export class ValidarTokenGuard implements CanActivate, CanLoad {
   .pipe(
     tap(valid=>{
       if(!valid){
-        this.route.navigateByUrl('/auth/login')
+        this.route.navigateByUrl('/admincontent')
       }
     })
   );
