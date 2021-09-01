@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
   rol: String = "";
   foto: String = "";
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private route:Router) { }
 
   ngOnInit(): void {
     this.obtenerRoles();
@@ -33,6 +35,8 @@ export class RegisterComponent implements OnInit {
     })
     .subscribe(confirm => {
       console.log(confirm)
+      this.route.navigateByUrl('/admincontent')
+      
     }, err => {
       console.log(err)
     })
