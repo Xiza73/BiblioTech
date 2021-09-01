@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
       }
     }
     let confirm = await addLibro(data.arc_libro, data.titulo, data.autor, data.categoria, data.pais, data.fch_pub, foto_data, foto_tipo);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
 
 exports.read = async (req, res) => {
     let data = await findLibro();
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -33,7 +33,7 @@ exports.read = async (req, res) => {
 exports.readById = async (req, res) => { 
     const {  id  } = req.query;
     let data = await findLibroById(id);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -43,7 +43,7 @@ exports.readCat = async (req, res) => {
     
     let data = await findLibroCat();
     //console.log(data[1]._id);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -52,7 +52,7 @@ exports.readCat = async (req, res) => {
 exports.update = async (req, res) => {
     let data = req.body;
     let confirm = await updateLibro(req.params.id, data.arc_libro, data.titulo, data.autor, data.categoria, data.pais, data.fec_pub, foto_data, foto_tipo);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
 
 exports.remove = async (req, res) => {
     let confirm = await removeLibro(req.params.id);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -70,7 +70,7 @@ exports.readByCat = async (req, res) =>{
     const {categoria,
            cantidad} = req.query;
     let data = await findLibroByCat(categoria, cantidad);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -80,7 +80,7 @@ exports.readByTitle = async (req, res) =>{
     
     const {  titulo  } = req.query;
     let data = await findLibroByTitle(titulo);    
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);

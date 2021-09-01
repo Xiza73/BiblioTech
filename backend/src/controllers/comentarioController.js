@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
 exports.createRespuesta = async (req, res) => {
     let data = req.body
     let confirm = await addRespuesta(data.comentario, data.id_usuario ,data.id_comentario);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -23,7 +23,7 @@ exports.readNew = async (req, res) => {
         id_libro
     } = req.query;
     let data = await findComentarioNew(id_libro);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -34,7 +34,7 @@ exports.readAnt = async (req, res) => {
         id_libro
     } = req.query;
     let data = await findComentarioAnt(id_libro);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -45,7 +45,7 @@ exports.readByCom = async (req, res) => {
         comentario
     } = req.query;
     let data = await findComentarioByCom(comentario);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -54,7 +54,7 @@ exports.readByCom = async (req, res) => {
 exports.update = async (req, res) => {
     let data = req.body;
     let confirm = await updateComentario(req.params.id,data.comentario, data.id_usuario, data.id_usuario);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -62,7 +62,7 @@ exports.update = async (req, res) => {
 
 exports.remove = async (req, res) => {
     let confirm = await removeComentario(req.params.id);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);

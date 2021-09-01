@@ -23,7 +23,7 @@ exports.create = async (req, res) => {
       }
     }
     let confirm = await addUsuario(data.usuario, data.correo, await bcrypt.hash(data.contrasenia, saltRounds), rol.id, foto_data, foto_tipo);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -32,7 +32,7 @@ exports.create = async (req, res) => {
 exports.read = async (req, res) => { //falta modificar DAO
     let data = await findUsuario();
     //console.log(data[1]._id);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -41,7 +41,7 @@ exports.read = async (req, res) => { //falta modificar DAO
 exports.readById = async (req, res) => {
     const {  id  } = req.query;
     let data = await findUsuarioById(id);
-    if(data.error){
+    if(data.status == 0){
         return res.status(400).json(data);
     }
     return res.json(data);
@@ -50,7 +50,7 @@ exports.readById = async (req, res) => {
 exports.update = async (req, res) => { 
     let data = req.body;
     let confirm = await updateUsuario(req.params.id, data.usuario, data.correo, await bcrypt.hash(data.contrasenia, saltRounds), rol.id, foto_data, foto_tipo);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
@@ -60,7 +60,7 @@ exports.update = async (req, res) => {
 exports.remove = async (req,res) => {   
     deletePersonaByIdUsuario(req.params.id)
     let confirm = await removeUsuario(req.params.id);
-    if(confirm.error){
+    if(confirm.status == 0){
         return res.status(400).json(confirm);
     }
     return res.json(confirm);
