@@ -17,7 +17,7 @@ export class ComentariosContainerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.comentarios = this.data.slice()
+    this.comentarios = this.data
     console.log(this.comentarios)
   }
 

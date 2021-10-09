@@ -20,7 +20,7 @@ exports.addComentario = async (comentario,id_usuario,id_libro) => {
     }catch{
         return{
             status: 0,
-            msg: "Error al añadir Comentario"
+            msg: "Error al añadir Comentario :("
         };
     }
 }

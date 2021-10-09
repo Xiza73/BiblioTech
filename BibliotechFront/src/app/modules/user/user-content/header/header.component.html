@@ -26,7 +26,7 @@
       <li *ngIf="!usuario"><a href="#">Ingresar</a></li>
       <li *ngIf="!usuario"><a href="#">Registro</a></li>
       <li *ngIf="usuario">
-        <a href="./usercontent/perfil">
+        <a routerLink="perfil">
           <i class="fas fa-user"></i>
           {{ usuario.name }}
         </a>

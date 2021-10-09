@@ -18,8 +18,8 @@ const routes: Routes = [
   {
     path: 'usercontent',
     loadChildren:() =>import('./modules/user/user.module').then(m=>m.UserModule),
-    canActivate: [ValidarTokenGuard],
-    canLoad:[ValidarTokenGuard]
+    canActivate: [ValidarTokenGuard]/* ,
+    canLoad:[ValidarTokenGuard] */
   },
   {
     path:'admincontent',
