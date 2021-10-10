@@ -51,7 +51,7 @@ export class LibroComponent implements OnInit {
         comentario: this.comentario,
         id_libro: this.idLibro
       }).subscribe(data => {
-        console.log(data)
+        this.obtenerComentarios(this.idLibro)
       }, err => {
         console.log("pipipi")
       })

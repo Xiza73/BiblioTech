@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
     this.userService.obtenerCategorias()
       .subscribe(data => {
         this.categories = data.map((e: { _id: any; }) => e._id)
+        console.log(data)
       }, err => {
         console.log(err)
       }) 
