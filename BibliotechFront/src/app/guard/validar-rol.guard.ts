@@ -18,9 +18,11 @@ export class ValidarRolGuard implements CanActivate {
     return this.authService.validarRolUsuario()
     .pipe(
       tap(valid=>{
-        if(!valid){
+        if(valid){
           console.log(valid)
           this.route.navigateByUrl('/usercontent/main-view')
+        }else{
+          
         }
       })
     );

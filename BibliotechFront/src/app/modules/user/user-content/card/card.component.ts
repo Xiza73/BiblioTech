@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ViewsService } from '../../services/views.service';
+import { AuthService } from '../../../auth/services/auth-service.service';
 
 @Component({
   selector: 'app-card',
@@ -12,14 +13,18 @@ export class CardComponent implements OnInit {
   @Input() card: any = null;
   @ViewChild('star') star!:ElementRef<HTMLInputElement>;
   active: boolean = false;
-
+  get usuario(){
+    return this.authService.usuario;
+  }
+  
   constructor(private userService: UserService,
               private router:Router,
-              private viewService: ViewsService) { }
+              private viewService: ViewsService,
+              private authService:AuthService) { }
 
   ngOnInit(): void {
     this.viewService.esFavorito({
-      idUsuario: "6121accb1822b61a58206cb6",
+      idUsuario: this.usuario._id,
       idLibro: this.card._id
     }).subscribe(data => {
       console.log(data)
@@ -32,7 +37,7 @@ export class CardComponent implements OnInit {
   addDeleteFavorite(){
     if(!this.active){
       this.userService.aniadirFavorito({
-        id_usuario: "6121accb1822b61a58206cb6",
+        id_usuario: this.usuario._id,
         id_libro: this.card._id
       }).subscribe(data => {
         console.log(data)
@@ -41,7 +46,7 @@ export class CardComponent implements OnInit {
       })
     }else{
       this.userService.eliminarFavorito({
-        id_usuario: "6121accb1822b61a58206cb6",
+        id_usuario: this.usuario._id,
         id_libro: this.card._id
       }).subscribe(data => {
         console.log(data)

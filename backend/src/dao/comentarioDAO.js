@@ -156,7 +156,6 @@ exports.findComentarioAnt = async (libro) => {
 exports.findComentarioNew = async (libro) => {
     try{
         let data;
-        
             data = await Comentario
             .aggregate([
                 {
@@ -165,23 +164,23 @@ exports.findComentarioNew = async (libro) => {
                       'es_comentario': 1
                     }
                 },
-               /* {
+                {
                     '$lookup': {
                       'from': 'personas', 
                       'localField': 'id_usuario', 
                       'foreignField': 'id_usuario', 
-                      'as': 'nombre'
+                      'as': 'usuario'
                     }
                 },
                 {
                     '$unwind': {
-                        'path': '$nombre'
+                        'path': '$usuario'
                     }
                 }, 
                 {
                     '$addFields': {
-                        'nombre': '$nombre.nombre', 
-                        'apellido': '$nombre.apellido'
+                        'nombre': '$usuario.nombre', 
+                        'apellido': '$usuario.apellido'
                     }
                 },   
                {
@@ -191,7 +190,7 @@ exports.findComentarioNew = async (libro) => {
                       'foreignField': '_id', 
                       'as': 'respuesta'
                     }                                     
-                }, */  
+                }, 
                 
                 {
                     '$graphLookup': {
@@ -200,14 +199,14 @@ exports.findComentarioNew = async (libro) => {
                        'connectFromField': 'id_respuesta',
                        'connectToField': '_id',
                        'as': 'res'
-                    },
-                                
+                    },          
                  },// crea un array  con las respuestas , problema intentar poner nombre por respuesta dentro del array
-                 {'$addFields': {
-                    'name': 'hello'
-                    
-                }  },
-                 {
+                 /*{
+                    '$addFields': {
+                        'name': 'hello' 
+                    }  
+                },*/
+                /* {
                  
                     '$lookup': {
                         'from': 'personas', 
@@ -215,7 +214,7 @@ exports.findComentarioNew = async (libro) => {
                         'foreignField': 'id_usuario', 
                         'as': 'nombre'
                     }
-                 },
+                 },*/
                   
                 {
                     '$sort' : {'createdAt': 1}
@@ -231,6 +230,8 @@ exports.findComentarioNew = async (libro) => {
         };
     }
 }
+
+
 exports.removeComentario = async (id) => {
     try{
         await Comentario.findByIdAndDelete(id).exec(); 

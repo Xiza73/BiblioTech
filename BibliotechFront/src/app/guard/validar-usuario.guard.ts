@@ -15,11 +15,11 @@ export class ValidarUsuarioGuard implements CanActivate {
     private route:Router){}
   canActivate(
     ): Observable<boolean > | Promise<boolean >|boolean {
-      return this.authService.validarUsuariologin()
+      return this.authService.validarRolUsuario()
       .pipe(
         tap(valid=>{
           console.log(valid)
-          if(valid===false){
+          if(!valid){
             this.route.navigateByUrl('/usercontent/main-view')
           }
         })

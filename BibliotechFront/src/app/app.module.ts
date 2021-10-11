@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 /* import { AuthModule } from './modules/auth/auth.module'; */
  import { HttpClientModule } from '@angular/common/http' 
 import {  PruebComponent } from './shared/card-libro/prueba.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PruebComponent
+    PruebComponent,
+    NotFoundComponent
 
   ],
   imports: [

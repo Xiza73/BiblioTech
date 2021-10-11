@@ -68,10 +68,19 @@ export class AuthService {
 
   validarUsuario():Observable<boolean>{
      
+    if(localStorage.getItem('token') ){
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      
+      console.log("putamare")
+      return of(true)
+     
+    }else{
+      return of(false)
+    }
    
     
     
-    if(localStorage.getItem('usuario')&&  this._usuario.rol.length!>7){
+  /*   if(localStorage.getItem('usuario')&&  this._usuario.rol.length!>7){
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(true)
       
@@ -80,7 +89,7 @@ export class AuthService {
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(false)
       
-    }
+    } */
 
   }
   /* validarUsuario():Observable<boolean>{
@@ -104,23 +113,47 @@ export class AuthService {
   validarUsuariologin():Observable<boolean>{
     
     if(localStorage.getItem('token') ){
-      
-      return of(false)
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      return of(true)
     }else{
       console.log("falsopapu")
-      return of(true)
+      return of(false)
       
     }
 
   }
   validarRolUsuario():Observable<boolean>{
-    if(this._usuario.rol.length===5  ){
+    if(localStorage.getItem('token') ){
+      
+      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
+      if(this._usuario.rol==="admin"){
+        return of(true)
+
+      }else{
+        return of(false)
+      }
+    }else{
+      console.log("falsopapu")
+      return of(false)
+      
+    }
+    
+    
+   /*  if(this._usuario.rol.length===5  ){
       this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
       return of(true)
     }else{
       this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
       return of(false)
-    }
+    } */
+  
+   /*  this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
+    if(this._usuario.rol.length===5){
+      return of(true)
+
+    }else{
+      return of(false)
+    } */
   }
 
 

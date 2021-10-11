@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
 
   
   @Output() onLogin:EventEmitter<string>= new EventEmitter()
-
+ get usuario(){
+   return this.authService.usuario
+ }
   constructor(
     private authService: AuthService,
     private router:Router,
@@ -40,7 +42,12 @@ export class LoginComponent implements OnInit {
       .subscribe(data =>{
         console.log(data)
         if(data===true){
-          this.router.navigateByUrl('/admincontent')
+          if(this.usuario.rol==="estudiante"){
+            
+            this.router.navigateByUrl('/usercontent/main-view')
+          }else{
+            this.router.navigateByUrl('/admincontent')
+          }
         }else{
           Swal.fire('Error',data, 'error' );
         }
