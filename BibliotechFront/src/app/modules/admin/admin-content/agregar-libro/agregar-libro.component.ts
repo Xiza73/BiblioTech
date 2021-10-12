@@ -29,14 +29,22 @@ export class AgregarLibroComponent implements OnInit {
   }
   
   agregarLibro(){
-
+    if ( this.miFormulario.invalid )  {
+      this.miFormulario.markAllAsTouched();
+      return;
+    }
     const{arc_libro, titulo, autor, categoria, pais,fch_pub} = this.miFormulario.value;
-    console.log(arc_libro, titulo, autor, categoria, pais,fch_pub)
+    
   this.dashboardService.agregarLibros({arc_libro, titulo, autor, categoria, pais,fch_pub})
   .subscribe(data=>{
     console.log(data)
+    this.miFormulario.reset();
     this.route.navigateByUrl('/admincontent')
   })
+  }
+  campoEsValido(campo: string ){
+    return this.miFormulario.controls[campo].errors 
+    && this.miFormulario.controls[campo].touched;
   }
 
   

@@ -2,28 +2,45 @@
     <div class="mb-3">
       <label for="archivo" class="form-label">nombre</label>
       <input type="text" formControlName="nombre" class="form-control" id="archivo" aria-describedby="emailHelp">
-      
+      <span class="form-text text-danger" *ngIf="campoEsValido('nombre')">
+        Campo obligatorio
+      </span>
     </div>
     <div class="mb-3">
       <label for="titulo" class="form-label">apellido</label>
       <input type="text" formControlName="apellido" class="form-control" id="titulo">
+      <span class="form-text text-danger" *ngIf="campoEsValido('apellido')">
+        Campo obligatorio
+      </span>
     </div>
     <div class="mb-3">
         <label for="autor" class="form-label">usuario</label>
         <input type="text" formControlName="usuario" class="form-control" id="autor">
+        <span class="form-text text-danger" *ngIf="campoEsValido('usuario')">
+          Campo obligatorio
+        </span>
       </div>
       <div class="mb-3">
         <label for="categoria" class="form-label">correo</label>
         <input type="text" formControlName="correo" class="form-control" id="categoria">
+        <span class="form-text text-danger" *ngIf="campoEsValido('correo')">
+          Campo obligatorio
+        </span>
       </div>
       <div class="mb-3">
         <label for="pais" class="form-label">rol</label>
         <input type="text" formControlName="rol" class="form-control" id="pais">
+        <span class="form-text text-danger" *ngIf="campoEsValido('rol')">
+          Campo obligatorio
+        </span>
       </div>
       <div class="mb-3">
         <label for="fechapublicacion" class="form-label">contraseña</label>
         <input type="text" formControlName="contrasenia" class="form-control" id="fechapublicacion">
+        <span class="form-text text-danger" *ngIf="campoEsValido('contrasenia')">
+          Campo obligatorio
+        </span>
       </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit"  class="btn btn-primary">Submit</button>
   </form>

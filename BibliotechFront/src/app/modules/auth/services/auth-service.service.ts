@@ -46,7 +46,7 @@ export class AuthService {
             
           }
           localStorage.setItem('usuario', JSON.stringify(this._usuario));
-          console.log(this._usuario);
+        
         }
       }),
       map(resp =>   resp.ok),
@@ -58,7 +58,32 @@ export class AuthService {
   }
 
   registrarUsuario(data: any): Observable<any>{
-    return this.http.post(`${this.API}/auth/register`, data)
+    return this.http.post<AuthResponse>(`${this.API}/auth/register`, data)
+    .pipe(
+      tap(resp =>{
+        if(resp.ok ){
+
+          localStorage.setItem('token', resp.token!);
+          
+          this._usuario={
+
+            
+            name:resp.user?.nombre,
+            correo:resp.user?.correo,
+            _id:resp.user?._id,
+            rol:resp.user?.rol
+       
+
+            
+          }
+          localStorage.setItem('usuario', JSON.stringify(this._usuario));
+         
+        }
+      }),
+      map(resp =>   resp.ok),
+      catchError(err => of(err.error.err[0]))
+      );
+      
   }
 
   obtenerRoles(): Observable<any>{
@@ -71,40 +96,16 @@ export class AuthService {
     if(localStorage.getItem('token') ){
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       
-      console.log("putamare")
+      
       return of(true)
      
     }else{
       return of(false)
     }
-   
-    
-    
-  /*   if(localStorage.getItem('usuario')&&  this._usuario.rol.length!>7){
-      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
-      return of(true)
-      
-    }else {
-     
-      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
-      return of(false)
-      
-    } */
+
 
   }
-  /* validarUsuario():Observable<boolean>{
-    
-    if(localStorage.getItem('token') ){
-      this._usuario=JSON.parse(localStorage.getItem('usuario')!)
-      return of(true)
-    }else if(){
-      console.log("falsopapu")
-      return of(false)
-      
-    }
   
-
-  } */
   logout(){
     localStorage.removeItem('token'),
     localStorage.removeItem('usuario')
@@ -116,7 +117,7 @@ export class AuthService {
       this._usuario=JSON.parse(localStorage.getItem('usuario')!)
       return of(true)
     }else{
-      console.log("falsopapu")
+      console.log("no está logeado")
       return of(false)
       
     }
@@ -133,31 +134,15 @@ export class AuthService {
         return of(false)
       }
     }else{
-      console.log("falsopapu")
+      console.log("es estudiante")
       return of(false)
       
     }
     
     
-   /*  if(this._usuario.rol.length===5  ){
-      this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
-      return of(true)
-    }else{
-      this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
-      return of(false)
-    } */
   
-   /*  this._usuario=JSON.parse(localStorage.getItem('usuario')||'')
-    if(this._usuario.rol.length===5){
-      return of(true)
-
-    }else{
-      return of(false)
-    } */
   }
 
-
-  //dashboard
 
   
 }

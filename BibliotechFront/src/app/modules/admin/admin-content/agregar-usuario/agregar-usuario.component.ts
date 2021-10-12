@@ -28,14 +28,23 @@ export class AgregarUsuarioComponent implements OnInit {
   }
   
   agregarUsuario(){
+    if ( this.miFormulario.invalid )  {
+      this.miFormulario.markAllAsTouched();
+      return;
+    }
 
     const{nombre,apellido,usuario,correo,rol,contrasenia} = this.miFormulario.value;
-    console.log(nombre,apellido,usuario,correo,rol,contrasenia)
+    
   this.dashboardService.agregarLibros({nombre,apellido,usuario,correo,rol,contrasenia})
   .subscribe(data=>{
     console.log(data)
+    this.miFormulario.reset();
     this.route.navigateByUrl('/admincontent/listausuarios')
   })
+  }
+  campoEsValido(campo: string ){
+    return this.miFormulario.controls[campo].errors 
+    && this.miFormulario.controls[campo].touched;
   }
 
 

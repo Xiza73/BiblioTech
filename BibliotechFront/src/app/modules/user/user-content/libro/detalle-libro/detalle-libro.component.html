@@ -2,7 +2,7 @@
   <article class="item-pane">
     <div class="item-preview">
       <div
-        [ngStyle]="{background : data.imagen.data ? 'url(\'' + data.imagen.data + '\')' : 'url(\'' + meinKaft +'\')'}"
+        
         class="book"
       ></div>
     </div>
@@ -30,7 +30,7 @@
       </div>
       <div class="pane__section clearfix">
         <span class="item-price">Bibliotech</span>
-        <p class="button buy-button" (click)="buscarLibro()">Buscar</p>
+        <a class="link" href="{{data.arc_libro}}"  target="_blank" >Buscar</a>
       </div>
     </div>
   </article>

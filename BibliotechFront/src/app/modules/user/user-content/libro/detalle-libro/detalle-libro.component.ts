@@ -8,7 +8,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 export class DetalleLibroComponent implements OnInit, OnChanges {
   @Input() libro: any = {};
   data: any = {
-    arc_libro: "xd",
+    arc_libro: "",
     autor: "",
     categoria: "",
     fch_pub: "",
@@ -18,13 +18,14 @@ export class DetalleLibroComponent implements OnInit, OnChanges {
     pais: "",
     titulo: ""
   };
-
-  meinKaft: string = '';
+   url="";
+  
 
   constructor() {
   }
 
   ngOnInit(): void {
+  this.url= this.data.arc_libro;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,6 +35,7 @@ export class DetalleLibroComponent implements OnInit, OnChanges {
   }
 
   buscarLibro(){
+    
     console.log(this.data.arc_libro)
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ViewsService } from '../../services/views.service';
 import { AuthService } from '../../../auth/services/auth-service.service';
+import { Libros } from '../../../auth/interfaces';
 
 @Component({
   selector: 'app-card',
@@ -10,7 +11,7 @@ import { AuthService } from '../../../auth/services/auth-service.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() card: any = null;
+  @Input() card!: Libros;
   @ViewChild('star') star!:ElementRef<HTMLInputElement>;
   active: boolean = false;
   get usuario(){

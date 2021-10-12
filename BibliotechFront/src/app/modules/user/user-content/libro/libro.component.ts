@@ -31,7 +31,7 @@ export class LibroComponent implements OnInit {
     .subscribe(data => {
       this.libro = data.body
     }, err => {
-      console.log('Kevin aquí pones la wea del error')
+      console.log('No existe el libro')
     })
   }
 
@@ -41,7 +41,7 @@ export class LibroComponent implements OnInit {
       this.comentarios = data.body;
       console.log(this.comentarios)
     }, err => {
-      console.log("Sáquenme de la FISI por favor")
+      console.log("no comentarios")
     })
   }
 
@@ -53,12 +53,12 @@ export class LibroComponent implements OnInit {
       }).subscribe(data => {
         this.obtenerComentarios(this.idLibro)
       }, err => {
-        console.log("pipipi")
+        console.log("no comentarios")
       })
       this.comentario = ""
       this.obtenerComentarios(this.idLibro)
     }else{
-      console.log("Escribe algo we")
+      console.log("Escribe algo ")
     }
   }
 

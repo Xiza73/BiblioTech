@@ -16,7 +16,7 @@
       <img src="../../../../../assets/bg.svg" />
     </div>
     <div class="login-content">
-      <form action="index.html">
+      <form action="index.html" [formGroup]="miFormulario" (ngSubmit)="register()" >
         <img src="../../../../../assets/avatar.svg" />
         <h2 class="title">Registrate</h2>
         <div class="input-div one">
@@ -29,12 +29,16 @@
               type="text"
               class="input"
               id="nombre"
-              name="nombre"
-              [(ngModel)]="nombre"
+              formControlName="nombre"
+              
               placeholder="nombre"
             />
           </div>
+          
         </div>
+        <span class="form-text text-danger" *ngIf="campoEsValido('nombre')">
+          Campo obligatorio
+        </span>
         <div class="input-div one">
           <div class="i">
             <i class="fas fa-user"></i>
@@ -45,12 +49,15 @@
               type="text"
               class="input"
               id="apellido"
-              name="apellido"
-              [(ngModel)]="apellido"
+              formControlName="apellido"
+            
               placeholder="apellido"
             />
           </div>
         </div>
+        <span class="form-text text-danger" *ngIf="campoEsValido('apellido')">
+          Campo obligatorio
+        </span>
         <div class="input-div one">
           <div class="i">
             <i class="fas fa-user"></i>
@@ -61,12 +68,15 @@
               type="text"
               class="input"
               id="usuario"
-              name="usuario"
-              [(ngModel)]="usuario"
+              formControlName="usuario"
+          
               placeholder="usuario"
             />
           </div>
         </div>
+        <span class="form-text text-danger" *ngIf="campoEsValido('usuario')">
+          Campo obligatorio
+        </span>
         <div class="input-div one">
           <div class="i">
             <i class="fas fa-user"></i>
@@ -77,31 +87,16 @@
               type="email"
               class="input"
               id="correo"
-              name="correo"
-              [(ngModel)]="correo"
+              formControlName="correo"
+              
               placeholder="correo"
             />
           </div>
         </div>
-        <div class="input-div one">
-          <div class="i">
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="div">
-            <!-- <h5>usuario</h5> -->
-            <select class="input" name="rol" [(ngModel)]="rol">
-                <option [value]="rol" *ngFor="let rol of roles">{{rol}}</option>
-            </select>
-            <!-- <input
-              type="text"
-              class="input"
-              id="rol"
-              name="rol"
-              [(ngModel)]="rol"
-              placeholder="rol"
-            /> -->
-          </div>
-        </div>
+        <span class="form-text text-danger" *ngIf="campoEsValido('correo')">
+          Ingresa un correo
+        </span>
+        
         <div class="input-div pass">
           <div class="i">
             <i class="fas fa-lock"></i>
@@ -112,79 +107,21 @@
               type="password"
               class="input"
               id="exampleInputPassword1"
-              name="password"
+              formControlName="contrasenia"
               placeholder="contraseña"
-              [(ngModel)]="contrasenia"
+              
             />
           </div>
         </div>
-        <!-- <a href="#">Forgot Password?</a> -->
-        <input type="submit" (click)="register()" class="btn" value="Login" />
+        <span class="form-text text-danger" *ngIf="campoEsValido('contrasenia')">
+          Campo obligatorio
+        </span>
+        
+        <a class="nocuenta" routerLink='/auth/login'> Tienes cuenta?</a>
+        <input type="submit"  class="btn" value="Login" />
       </form>
+      
     </div>
   </div>
 </div>
 
-<!-- <form class="p-4 w-25">
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input
-            type="text"
-            class="form-control"
-            id="nombre"
-            name="nombre"
-            [(ngModel)]="nombre"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input
-            type="text"
-            class="form-control"
-            id="apellido"
-            name="apellido"
-            [(ngModel)]="apellido"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="usuario" class="form-label">Usuario</label>
-        <input
-            type="text"
-            class="form-control"
-            id="usuario"
-            name="usuario"
-            [(ngModel)]="usuario"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="correo" class="form-label">Correo</label>
-        <input
-            type="email"
-            class="form-control"
-            id="correo"
-            name="correo"
-            [(ngModel)]="correo"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="rol" class="form-label">Rol</label>
-        <input
-            type="text"
-            class="form-control"
-            id="rol"
-            name="rol"
-            [(ngModel)]="rol"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="contrasenia" class="form-label">Contraseña</label>
-        <input 
-          type="password" 
-          class="form-control" 
-          id="contrasenia"
-          name="contrasenia"
-          [(ngModel)]="contrasenia"
-        />
-      </div>
-    <button type="button" class="btn btn-primary" (click)="register()" >Submit</button>
-  </form> -->

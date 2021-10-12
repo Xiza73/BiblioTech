@@ -6,20 +6,17 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, OnChanges {
+export class SearchComponent implements OnInit {
   
-   titulo:any='';
+   titulo:string|null='';
   constructor(public route:ActivatedRoute) { }
   
   ngOnInit(): void {
     
     this.titulo =  this.route.snapshot.paramMap.get('title')
-    console.log('funciona porfavor')
+   
     console.log(this.route.snapshot.paramMap.keys)
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(":(")
-    
-  }
+  
   
 }

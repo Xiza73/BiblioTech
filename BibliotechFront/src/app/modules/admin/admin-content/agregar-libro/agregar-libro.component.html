@@ -1,29 +1,79 @@
 <form [formGroup]="miFormulario" (ngSubmit)="agregarLibro()">
-    <div class="mb-3">
-      <label for="archivo" class="form-label">Url libro</label>
-      <input type="text" formControlName="arc_libro" class="form-control" id="archivo" aria-describedby="emailHelp">
-      
-    </div>
-    <div class="mb-3">
-      <label for="titulo" class="form-label">titulo</label>
-      <input type="text" formControlName="titulo" class="form-control" id="titulo">
-    </div>
-    <div class="mb-3">
-        <label for="autor" class="form-label">autor</label>
-        <input type="text" formControlName="autor" class="form-control" id="autor">
-      </div>
-      <div class="mb-3">
-        <label for="categoria" class="form-label">categoria</label>
-        <input type="text" formControlName="categoria" class="form-control" id="categoria">
-      </div>
-      <div class="mb-3">
-        <label for="pais" class="form-label">pais</label>
-        <input type="text" formControlName="pais" class="form-control" id="pais">
-      </div>
-      <div class="mb-3">
-        <label for="fechapublicacion" class="form-label">fechapublicacion</label>
-        <input type="text" formControlName="fch_pub" class="form-control" id="fechapublicacion">
-      </div>
+  <div class="mb-3">
+    <label for="archivo" class="form-label">Url libro</label>
+    <input
+      type="text"
+      formControlName="arc_libro"
+      class="form-control"
+      id="archivo"
+      aria-describedby="emailHelp"
+    />
+    <span class="form-text text-danger" *ngIf="campoEsValido('arc_libro')">
+      Campo obligatorio
+    </span>
+  </div>
+  <div class="mb-3">
+    <label for="titulo" class="form-label">titulo</label>
+    <input
+      type="text"
+      formControlName="titulo"
+      class="form-control"
+      id="titulo"
+    />
+    <span class="form-text text-danger" *ngIf="campoEsValido('titulo')">
+      Campo obligatorio
+    </span>
+  </div>
+  <div class="mb-3">
+    <label for="autor" class="form-label">autor</label>
+    <input
+      type="text"
+      formControlName="autor"
+      class="form-control"
+      id="autor"
+    />
+    <span class="form-text text-danger" *ngIf="campoEsValido('autor')">
+      Campo obligatorio
+    </span>
+  </div>
+  <div class="mb-3">
+    <label for="categoria" class="form-label">categoria</label>
+    <input
+      type="text"
+      formControlName="categoria"
+      class="form-control"
+      id="categoria"
+    />
+    <span class="form-text text-danger" *ngIf="campoEsValido('categoria')">
+      Campo obligatorio
+    </span>
+  </div>
+  <div class="mb-3">
+    <label for="pais" class="form-label">pais</label>
+    <input type="text" formControlName="pais" class="form-control" id="pais" />
+    <span class="form-text text-danger"
+      *ngIf="campoEsValido('pais')">
+      Campo obligatorio
+      </span>
+  </div>
+  <div class="mb-3">
+    <label for="fechapublicacion" class="form-label">fechapublicacion</label>
+    <input
+      type="text"
+      formControlName="fch_pub"
+      class="form-control"
+      id="fechapublicacion"
+    />
+    <span class="form-text text-danger" *ngIf="campoEsValido('fch_pub')">
+      Campo obligatorio
+    </span>
+  </div>
+
+  <button
+    type="submit"
     
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    class="btn btn-primary"
+  >
+    Submit
+  </button>
+</form>

@@ -66,6 +66,7 @@ export class CardsContainerComponent implements OnInit,OnChanges {
       cantidad: this.params.cant
     }).subscribe(data => {
       this.cards = data.body
+      console.log(this.cards)
       this.verificaparams= true;
     }, err => {
       console.log(err);

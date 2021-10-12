@@ -24,11 +24,18 @@ export class ListaUsuariosComponent implements OnInit {
   eliminarUsuario(id:any){
     this.dashboardService.eliminarUsuario(id)
     .subscribe(resp => {
-     
-      this.route.navigateByUrl('/usercontent/listausuarios')
+      this.dashboardService.obtenerUsuarios().subscribe(resp=>{
+        this.listaUsers=resp})
+
+      
+      this.route.navigateByUrl('/admincontent/listausuarios')
     })
    
 
   }
+ 
+   
 
-}
+  }
+
+

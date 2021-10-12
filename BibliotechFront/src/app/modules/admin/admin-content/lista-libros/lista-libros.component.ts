@@ -28,7 +28,7 @@ export class ListaLibrosComponent implements OnInit {
       this.dashboardService.obtenerLibros()
       .subscribe(resp => {this.listaLibros = resp ,
         console.log(resp)})
-      this.route.navigateByUrl('/usercontent')
+      this.route.navigateByUrl('/admincontent/listalibros')
     })
    
 

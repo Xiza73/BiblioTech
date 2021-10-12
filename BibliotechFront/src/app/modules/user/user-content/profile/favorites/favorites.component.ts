@@ -22,7 +22,7 @@ export class FavoritesComponent implements OnInit {
     this.obtenerFavoritos();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(":c")
+   
   }
 
   obtenerFavoritos(){
@@ -30,6 +30,7 @@ export class FavoritesComponent implements OnInit {
     .subscribe(data => {
       console.log(data)
       this.cards = data.body
+      console.log(this.cards)
       this.verificaparams= true;
     }, err => {
       console.log(err)

@@ -20,15 +20,15 @@ export interface NuevoUser{
     rol:string
 }
 export interface Libros {
-    imagen:    Imagen;
-    _id:       string;
+    imagen?:    Imagen;
+    _id?:       string;
     arc_libro: string;
-    titulo:    string;
+    titulo?:    string;
     autor:     string;
-    categoria: string;
+    categoria?: string;
     pais:      string;
-    fch_pub:   Date;
-    __v:       number;
+    fch_pub?:   string;
+    __v?:       number;
 }
 
 export interface Imagen {
